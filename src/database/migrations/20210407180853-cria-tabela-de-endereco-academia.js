@@ -13,7 +13,7 @@ module.exports = {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    Street:{
+    street:{
       type: Sequelize.STRING,
       allowNull: false,
     },

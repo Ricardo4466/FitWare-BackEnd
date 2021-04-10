@@ -20,3 +20,4 @@ UserStudent.associate(connection.models);
 StudentUserAddress.associate(connection.models);
 Academy.associate(connection.models);
 AddressAcademy.associate(connection.models);
+

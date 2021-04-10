@@ -9,6 +9,6 @@ const AcademyController = require("./controllers/Academy");
 const routes = express.Router();
 
 routes.post("/UserAcademy", UserStudentController.store);
-routes.post("/Academy", AcademyController.store);
+routes.post("/RegisterAcademy", AcademyController.store);
 
 module.exports = routes;

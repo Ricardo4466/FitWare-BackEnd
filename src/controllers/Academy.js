@@ -1,4 +1,4 @@
-const User_Student = require("../models/UserStudent");
+
 const AddressAcademy = require("../models/AddressAcademy");
 const Academy = require("../models/Academy");
 
@@ -37,7 +37,7 @@ module.exports = {
             });
             console.log(AcademyRegister);
 
-            Address_Academy.addAcademy(Address_Academy);
+            // AddressAcademy.addAcademy(Address_Academy);
 
             res.status(201).send({
                 AcademyRegister: {
@@ -47,6 +47,7 @@ module.exports = {
                     telefone: AcademyRegister.telefone,
                     email: AcademyRegister.email,
                     password: AcademyRegister.password,
+                    Address_Academy: Address_Academy,
                 }
             });
         }catch (error){

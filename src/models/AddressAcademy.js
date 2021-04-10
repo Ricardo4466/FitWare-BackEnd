@@ -5,7 +5,7 @@ class AddressAcademy extends Model {
     super.init(
       {
         cep: DataTypes.STRING,
-        streat: DataTypes.STRING,
+        street: DataTypes.STRING,
         state: DataTypes.STRING,
         city: DataTypes.STRING,
       },

@@ -11,7 +11,9 @@ class Academy extends Model {
         password: DataTypes.STRING,
       },
       {
+        tableName: "academy",
         sequelize,
+
       }
     );
   }
