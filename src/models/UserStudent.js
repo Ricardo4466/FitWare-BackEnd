@@ -21,8 +21,7 @@ class UserStudent extends Model {
     );
   }
   static associate(models) {
-    this.belongsToMany(models.StudentUserAddress, {through: "user_student_address", foreignKey:"student_address_id"});
-    this.belongsToMany(models.Academy, {through: "student_academy"});
+    this.hasOne(models.AddressStudent, { foreignKey: "student_id" });
   }
 }
 

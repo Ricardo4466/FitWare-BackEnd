@@ -1,7 +1,6 @@
 const User_Student = require("../models/UserStudent");
-const AddressStudent = require("../models/StudentUserAddress");
 
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 module.exports = {
   index(req, res) {},
@@ -25,48 +24,54 @@ module.exports = {
       state,
       city,
     } = req.body;
-    
+
+    const { studentId } = req;
+
     try {
       // const encryptedPassword = bcrypt.hashSync(password);
-      
-      const student_address = await AddressStudent.create({
-        cep,
-        street,
-        state,
-        city,
-      });
-      
-      const user_student = await User_Student.create({
+
+      if (first_name === "")
+        return res
+          .status(400)
+          .send({
+            error:
+              "Não é possivel efetuar o cadastro sem que primeiro nome não esteja preenchido!",
+          });
+
+          const encryptedPassword = bcrypt.hashSync(password)
+
+      const userStudent = await User_Student.create({
         first_name,
         surname,
         email,
-        password,
+        password: encryptedPassword,
         weight,
         height,
         cpf,
         birth_date,
         celular,
-        image_profile,
       });
-      console.log(user_student);
-      
 
-      student_address.addUserStudents(student_address);
+      userStudent.createAddressStudent({
+        cep,
+        street,
+        state,
+        city,
+      });
+
+    
 
       res.status(201).send({
         user_student: {
-          user_student_id: user_student.id,
-          first_name: user_student.first_name,
-          surname: user_student.surname,
-          email: user_student.email,
-          // password: user_student.password,
-          weight: user_student.weight,
-          height: user_student.height,
-          cpf: user_student.cpf,
-          birth_date: user_student.birth_date,
-          celular: user_student.celular,
-          image_profile,
-          student_address: student_address
+          user_student_id: userStudent.id,
+          first_name: userStudent.first_name,
+          surname: userStudent.surname,
+          email: userStudent.email,
+          weight: userStudent.weight,
+          height: userStudent.height,
+          cpf: userStudent.cpf,
+          birth_date: userStudent.birth_date,
+          celular: userStudent.celular,
         },
       });
     } catch (error) {
@@ -80,8 +85,8 @@ module.exports = {
   update(req, res) {},
 };
 
-// for (let assoc of Object.keys(AddressStudent.associations)) {
-//     for (let accessor of Object.keys(AddressStudent.associations[assoc].accessors)) {
-//         console.log(AddressStudent.name + '.' + AddressStudent.associations[assoc].accessors[accessor] + '()');
+// for (let assoc of Object.keys(User_Student.associations)) {
+//     for (let accessor of Object.keys(User_Student.associations[assoc].accessors)) {
+//         console.log(User_Student.name + '.' + User_Student.associations[assoc].accessors[accessor] + '()');
 //     }
 // }

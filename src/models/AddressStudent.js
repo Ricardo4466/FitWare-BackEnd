@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 
-class AddressAcademy extends Model {
+class AddressStudent extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -10,15 +10,15 @@ class AddressAcademy extends Model {
         city: DataTypes.STRING,
       },
       {
-        tableName: "address_academy",
+        tableName: "student_address",
         sequelize,
       }
     );
   }
 
   static associate(models) {
-    this.belongsTo(models.Academy);
+    this.belongsTo(models.UserStudent);
   }
 }
 
-module.exports = AddressAcademy;
+module.exports = AddressStudent;
