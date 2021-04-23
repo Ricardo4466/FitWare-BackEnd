@@ -25,20 +25,14 @@ module.exports = {
       city,
     } = req.body;
 
-    const { studentId } = req;
-
     try {
-      // const encryptedPassword = bcrypt.hashSync(password);
 
-      if (first_name === "")
-        return res
-          .status(400)
-          .send({
-            error:
-              "Não é possivel efetuar o cadastro sem que primeiro nome não esteja preenchido!",
-          });
+      if (first_name === "" )
+        return res.status(400).send({error:"Não é possivel efetuar o cadastro sem que primeiro nome não esteja preenchido!"});
 
-          const encryptedPassword = bcrypt.hashSync(password)
+    
+    
+      const encryptedPassword = bcrypt.hashSync(password)
 
       const userStudent = await User_Student.create({
         first_name,
@@ -60,7 +54,6 @@ module.exports = {
       });
 
     
-
       res.status(201).send({
         user_student: {
           user_student_id: userStudent.id,
@@ -73,6 +66,8 @@ module.exports = {
           birth_date: userStudent.birth_date,
           celular: userStudent.celular,
         },
+
+        
       });
     } catch (error) {
       console.log(error);
@@ -90,3 +85,4 @@ module.exports = {
 //         console.log(User_Student.name + '.' + User_Student.associations[assoc].accessors[accessor] + '()');
 //     }
 // }
+
