@@ -7,6 +7,7 @@ const AddressStudent = require("../models/AddressStudent");
 const Academy = require("../models/Academy");
 const AddressAcademy = require("../models/AddressAcademy");
 
+
 const connection = new Sequelize(dbConfig);
 
 // INICIANDO OS MODELS
