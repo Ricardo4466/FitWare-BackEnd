@@ -16,9 +16,9 @@ class AddressAcademy extends Model {
     );
   }
 
-//   static associate(models) {
-//     this.belongsTo(models.Academy);
-//   }
+  static associate(models) {
+    this.belongsTo(models.Academy);
+  }
 }
 
 module.exports = AddressAcademy;

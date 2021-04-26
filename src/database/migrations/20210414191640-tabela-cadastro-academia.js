@@ -9,7 +9,7 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
       },
-      name: {
+      name_academy: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -25,7 +25,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      password: {
+      password_academy: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -37,20 +37,10 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      address_academy_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "address_academy",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-      },
-
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    queryInterface.dropTable("academy", {});
+    queryInterface.dropTable("academy");
   },
 };
