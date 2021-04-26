@@ -6,6 +6,7 @@ const UserStudent = require("../models/UserStudent");
 const AddressStudent = require("../models/AddressStudent");
 
 
+
 const connection = new Sequelize(dbConfig);
 
 // INICIANDO OS MODELS
