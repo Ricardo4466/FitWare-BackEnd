@@ -3,7 +3,6 @@ const { celebrate, Segments, Joi } = require("celebrate");
 module.exports = {
   create: celebrate({
     [Segments.BODY]: Joi.object().keys({
-        
       first_name: Joi.string().required().min(4).max(255),
 
       surname: Joi.string().required().min(4).max(255),
@@ -24,11 +23,11 @@ module.exports = {
 
       cep: Joi.string().required().min(8),
 
-      street: Joi.string().required.min(6),
+      street: Joi.string().required().min(6),
 
-      state: Joi.string().required.min(5),
+      state: Joi.string().required().min(5),
 
-      city: Joi.string().required.min(5),
+      city: Joi.string().required().min(5),
     }),
   }),
 };
