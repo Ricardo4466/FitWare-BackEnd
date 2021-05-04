@@ -1,13 +1,10 @@
-const { Model,DataTypes } = require("sequelize");
+const { Model, DataTypes } = require("sequelize");
 
 class Schedules extends Model {
   static init(sequelize) {
     super.init(
       {
-        date: DataTypes.STRING,
-        hour: DataTypes.STRING,
-        limitPerson: DataTypes.STRING,
-        duration: DataTypes.STRING,
+        link: DataTypes.STRING,
       },
       {
         sequelize,

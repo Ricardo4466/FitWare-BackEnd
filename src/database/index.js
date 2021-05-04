@@ -9,6 +9,7 @@ const AddressAcademy = require("../models/AddressAcademy");
 const Schedules = require("../models/Schedules");
 const Administrator = require("../models/Administrator");
 const PersonalTrainer = require("../models/PersonalTrainner");
+const SchedulesOnline = require("../models/SchedulesOnline")
 
 const connection = new Sequelize(dbConfig);
 
@@ -20,6 +21,7 @@ Academy.init(connection);
 Schedules.init(connection);
 Administrator.init(connection);
 PersonalTrainer.init(connection);
+SchedulesOnline.init(connection);
 
 // INICIANDO OS RELACIONAMENTOS
 UserStudent.associate(connection.models);
@@ -28,4 +30,5 @@ AddressAcademy.associate(connection.models);
 Academy.associate(connection.models);
 Schedules.associate(connection.models)
 Administrator.associate(connection.models);
-PersonalTrainer.associate(connection.models)
+PersonalTrainer.associate(connection.models);
+SchedulesOnline.associate(connection.models);

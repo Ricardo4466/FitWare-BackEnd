@@ -2,31 +2,16 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    queryInterface.createTable("user_personal", {
+    queryInterface.createTable("schedules_online", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
       },
-      name: {
+      link: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      password: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      specialty: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      image_profile: {
-        type: Sequelize.STRING,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -40,6 +25,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    queryInterface.dropTable("user_personal");
+    queryInterface.dropTable("schedules_online");
   },
 };

@@ -1,60 +1,60 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    queryInterface.createTable('user_students',{
-      id:{
-        type:Sequelize.INTEGER,
+    queryInterface.createTable("user_students", {
+      id: {
+        type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: false
-      },
-      first_name:{
-        type:Sequelize.STRING,
         allowNull: false,
       },
-      surname:{
-        type:Sequelize.STRING,
+      first_name: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      email:{
-        type:Sequelize.STRING,
+      surname: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      password:{
-        type:Sequelize.STRING,
+      email: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      image_profile:{
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      image_profile: {
         type: Sequelize.STRING,
       },
-      weight:{
+      weight: {
         type: Sequelize.STRING,
       },
-      height:{
+      height: {
         type: Sequelize.STRING,
       },
-      cpf:{
+      cpf: {
         type: Sequelize.STRING,
       },
-      birth_date:{
-        type: Sequelize.STRING
+      birth_date: {
+        type: Sequelize.STRING,
       },
-      celular:{
-        type: Sequelize.STRING
+      celular: {
+        type: Sequelize.STRING,
       },
-      created_at:{
+      created_at: {
         type: Sequelize.DATE,
-        allowNull:false,
+        allowNull: false,
       },
-      updated_at:{
+      updated_at: {
         type: Sequelize.DATE,
-        allowNull:false,
-      }
+        allowNull: false,
+      },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    queryInterface.dropTable('user_students');
-  }
+    queryInterface.dropTable("user_students");
+  },
 };

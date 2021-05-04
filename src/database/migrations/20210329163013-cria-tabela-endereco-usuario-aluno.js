@@ -1,27 +1,27 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    queryInterface.createTable("student_address",{
-      id:{
-        type:Sequelize.INTEGER,
+    queryInterface.createTable("student_address", {
+      id: {
+        type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: false
+        allowNull: false,
       },
-      cep:{
+      cep: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      Street:{
+      Street: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      state:{
+      state: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      city:{
+      city: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -34,19 +34,18 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      created_at:{
+      created_at: {
         type: Sequelize.DATE,
-        allowNull:false,
+        allowNull: false,
       },
-      updated_at:{
+      updated_at: {
         type: Sequelize.DATE,
-        allowNull:false,
-      }
-
+        allowNull: false,
+      },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
     queryInterface.dropTable("student_address");
-  }
+  },
 };

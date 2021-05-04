@@ -4,7 +4,7 @@ class Academy extends Model {
   static init(sequelize) {
     super.init(
       {
-        name_academy: DataTypes.STRING,
+        name: DataTypes.STRING,
         cnpj: DataTypes.STRING,
         telefone: DataTypes.STRING,
         email: DataTypes.STRING,
