@@ -17,7 +17,7 @@ class AddressStudent extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.UserStudent);
+    this.belongsTo(models.UserStudent, { foreignKey: "student_id" });
   }
 }
 

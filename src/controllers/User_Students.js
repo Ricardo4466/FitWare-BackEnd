@@ -3,9 +3,36 @@ const User_Student = require("../models/UserStudent");
 const bcrypt = require("bcryptjs");
 
 module.exports = {
-  index(req, res) {},
+  async index(req, res) {
+    try {
+      const userStudent = await User_Student.findAll({
+        include: {
+          association: "AddressStudent",
+        },
+      });
 
-  find(req, res) {},
+      res.send(userStudent);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ error });
+    }
+  },
+  async find(req, res) {
+    const userStudentId = req.params.id;
+
+    try {
+      let userStudent = await User_Student.findByPk(userStudentId,{
+        attributes:["id", "first_name", "email", "celular"]
+      });
+
+      if(!userStudent)
+        return res.status(404).send({erro: "Usuario não encontrado"});
+        res.send(userStudent);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ error });
+    }
+  },
 
   async store(req, res) {
     const {
@@ -26,13 +53,15 @@ module.exports = {
     } = req.body;
 
     try {
+      if (first_name === "")
+        return res
+          .status(400)
+          .send({
+            error:
+              "Não é possivel efetuar o cadastro sem que primeiro nome não esteja preenchido!",
+          });
 
-      if (first_name === "" )
-        return res.status(400).send({error:"Não é possivel efetuar o cadastro sem que primeiro nome não esteja preenchido!"});
-
-    
-    
-      const encryptedPassword = bcrypt.hashSync(password)
+      const encryptedPassword = bcrypt.hashSync(password);
 
       const userStudent = await User_Student.create({
         first_name,
@@ -53,7 +82,6 @@ module.exports = {
         city,
       });
 
-    
       res.status(201).send({
         user_student: {
           user_student_id: userStudent.id,
@@ -66,8 +94,6 @@ module.exports = {
           birth_date: userStudent.birth_date,
           celular: userStudent.celular,
         },
-
-        
       });
     } catch (error) {
       console.log(error);
@@ -85,4 +111,3 @@ module.exports = {
 //         console.log(User_Student.name + '.' + User_Student.associations[assoc].accessors[accessor] + '()');
 //     }
 // }
-

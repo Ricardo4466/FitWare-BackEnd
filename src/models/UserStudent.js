@@ -16,6 +16,7 @@ class UserStudent extends Model {
         celular: DataTypes.STRING,
       },
       {
+        tableName: "user_students",
         sequelize,
       }
     );

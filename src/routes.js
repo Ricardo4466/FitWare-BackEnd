@@ -12,14 +12,16 @@ const routes = express.Router();
 
 routes.post("/academy", academyController.store);
 routes.post("/userAcademy", userStudentValidator.create, userStudentController.store);
-routes.get("/academy", academyController.index);
 
-// routes.use(authMiddleware);
+
+routes.use(authMiddleware);
 
 // students routes configuration
-
+routes.get("/userAcademy", userStudentController.index);
+routes.get("/userAcademy/:id", userStudentController.find);
 
 // academy routes configuration
+routes.get("/academy", academyController.index);
 
 
 module.exports = routes;

@@ -1,27 +1,37 @@
-
 const Academy = require("../models/Academy");
 
 module.exports = {
-   async index(req, res) {
-
+  async index(req, res) {
     try {
-      const academy = await Academy.findAll();
+      const academy = await Academy.findAll({
+        include: {
+          association: "AddressAcademy",
+        },
+      });
 
       res.send(academy);
     } catch (error) {
       console.log(error);
       res.status(500).send({ error });
     }
-    
   },
 
   find(req, res) {},
 
   async store(req, res) {
-    const {name, cnpj, telefone, email, password_academy, cep, street, state, city } = req.body;
+    const {
+      name,
+      cnpj,
+      telefone,
+      email,
+      password_academy,
+      cep,
+      street,
+      state,
+      city,
+    } = req.body;
 
     try {
-      
       const AcademyRegister = await Academy.create({
         name,
         cnpj,
@@ -30,14 +40,13 @@ module.exports = {
         password_academy,
       });
       //console.log(AcademyRegister);
-      
+
       AcademyRegister.createAddressAcademy({
-        cep, 
+        cep,
         street,
         state,
         city,
       });
-      
 
       res.status(201).send({
         AcademyRegister: {
@@ -48,7 +57,6 @@ module.exports = {
           email: AcademyRegister.email,
           password_academy: AcademyRegister.password_academy,
         },
-
       });
     } catch (error) {
       console.log(error);
