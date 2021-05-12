@@ -15,7 +15,7 @@ class PersonalTrainer extends Model {
     );
   }
 
-  static associate(models) {}
+  static associate(models) { }
 }
 
 module.exports = PersonalTrainer;
