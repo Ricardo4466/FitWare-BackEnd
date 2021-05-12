@@ -1,4 +1,4 @@
-const PersonalTrainer = require("../models/PersonalTrainner");
+const PersonalTrainer = require("../models/PersonalTrainer");
 
 
 module.exports = {
@@ -15,7 +15,23 @@ module.exports = {
 
     },
 
-    find(req, res) { },
+    async find(req, res) {
+        const personal_id = req.params.id;
+
+        try {
+            let personal = await PersonalTrainer.findByPk(personal_id, {
+                attributes: ["id", "name", "email", "specialty"]
+            });
+
+            if (!personal)
+                return res.status(404).send({ erro: "Personal Trainer não encontrado" });
+            res.send(personal);
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ error });
+        }
+    },
 
     async store(req, res) {
         const { name, specialty, email, password } = req.body;
@@ -28,7 +44,6 @@ module.exports = {
                 email,
                 password,
             });
-            //console.log(PersonalTrainer);
 
 
             res.status(201).send({
@@ -47,7 +62,9 @@ module.exports = {
         }
     },
 
-    update(req, res) { },
+    update(req, res) {
+
+    },
 
     delete(req, res) { },
 };

@@ -22,6 +22,8 @@ routes.post("/userAcademy", userStudentValidator.create, userStudentController.s
 // students routes configuration
 routes.get("/userAcademy", userStudentController.index);
 routes.get("/userAcademy/:id", userStudentController.find);
+routes.delete("/userAcademy/:id", userStudentController.delete);
+routes.put("/userAcademy/:id", userStudentValidator.create, userStudentController.update);
 
 // academy routes configuration
 routes.get("/academy", academyController.index);
@@ -29,6 +31,7 @@ routes.get("/academy", academyController.index);
 // personal Trainer routes configuration
 routes.post("/personalTrainer", userPersonalTrainerValidator.create, PersonalTrainerController.store);
 routes.get("/personalTrainer", PersonalTrainerController.index);
+routes.get("/personalTrainer/:id", PersonalTrainerController.find);
 
 
 

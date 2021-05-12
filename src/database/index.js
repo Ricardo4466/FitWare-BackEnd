@@ -8,7 +8,7 @@ const Academy = require("../models/Academy");
 const AddressAcademy = require("../models/AddressAcademy");
 const Schedules = require("../models/Schedules");
 const Administrator = require("../models/Administrator");
-const PersonalTrainer = require("../models/PersonalTrainner");
+const PersonalTrainer = require("../models/PersonalTrainer");
 const SchedulesOnline = require("../models/SchedulesOnline")
 
 const connection = new Sequelize(dbConfig);

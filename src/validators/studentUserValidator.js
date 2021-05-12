@@ -14,7 +14,7 @@ module.exports = {
       celular: Joi.string().required().min(11).max(255),
       cep: Joi.string().required().min(8),
       street: Joi.string().required().min(4),
-      state: Joi.string().required().min(2),
+      state: Joi.string().required().min(2).max(2),
       city: Joi.string().required().min(4),
       image_profile: Joi.string().required().min(4),
     }),
