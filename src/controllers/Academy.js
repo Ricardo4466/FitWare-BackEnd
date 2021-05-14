@@ -16,7 +16,24 @@ module.exports = {
     }
   },
 
-  find(req, res) {},
+  async find(req, res) {
+    const academy_id = req.params.id;
+
+    try {
+      let academy = await Academy.findByPk(academy_id, {
+        attributes: ["id", "name", "email", "telefone"],
+      });
+
+      //const address = await academy.getAddressStudent();
+
+      if (!academy)
+        return res.status(404).send({ erro: "Academia não encontrada" });
+      res.send(academy);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ error });
+    }
+  },
 
   async store(req, res) {
     const {
@@ -64,7 +81,62 @@ module.exports = {
     }
   },
 
-  update(req, res) {},
+  async update(req, res) {
+    const academy_id = req.params.id;
+    let academy = await Academy.findByPk(academy_id);
 
-  delete(req, res) {},
+    const {
+      name,
+      cnpj,
+      telefone,
+      email,
+      password_academy,
+      cep,
+      street,
+      state,
+      city,
+    } = req.body;
+
+    try {
+      if (!academy) res.status(404).send({ error: "Academia não encontrada" });
+
+      academy.name = name;
+      academy.password_academy = password_academy;
+      academy.cnpj = cnpj;
+      academy.telefone = telefone;
+      academy.email = email;
+
+      const address = await academy.getAddressAcademy();
+      address.street = street;
+      address.state = state;
+      address.city = city;
+      address.cep = cep;
+
+      academy.save();
+      address.save();
+
+      res.status(204).send();
+    } catch (error) {
+      console.log(error);
+      res.status(500).send(error);
+    }
+  },
+
+  async delete(req, res) {
+    const academy_id = req.params.id;
+
+    try {
+      let academy = await Academy.findByPk(academy_id);
+
+      if (!academy)
+        return res.status(404).send({ error: "Academia não encontrada" });
+
+      await academy.destroy();
+
+      return res.status(200).send({ succes: "Registro deletado com sucesso" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send(error);
+    }
+  },
 };

@@ -1,70 +1,102 @@
 const PersonalTrainer = require("../models/PersonalTrainer");
 
-
 module.exports = {
-    async index(req, res) {
+  async index(req, res) {
+    try {
+      const personal = await PersonalTrainer.findAll();
 
-        try {
-            const personal = await PersonalTrainer.findAll();
+      res.send(personal);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ error });
+    }
+  },
 
-            res.send(personal);
-        } catch (error) {
-            console.log(error);
-            res.status(500).send({ error });
-        }
+  async find(req, res) {
+    const personal_id = req.params.id;
 
-    },
+    try {
+      let personal = await PersonalTrainer.findByPk(personal_id, {
+        attributes: ["id", "name", "email", "specialty"],
+      });
 
-    async find(req, res) {
-        const personal_id = req.params.id;
+      if (!personal)
+        return res
+          .status(404)
+          .send({ erro: "Personal Trainer não encontrado" });
+      res.send(personal);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ error });
+    }
+  },
 
-        try {
-            let personal = await PersonalTrainer.findByPk(personal_id, {
-                attributes: ["id", "name", "email", "specialty"]
-            });
+  async store(req, res) {
+    const { name, specialty, email, password } = req.body;
 
-            if (!personal)
-                return res.status(404).send({ erro: "Personal Trainer não encontrado" });
-            res.send(personal);
+    try {
+      const PersonalRegister = await PersonalTrainer.create({
+        name,
+        specialty,
+        email,
+        password,
+      });
 
-        } catch (error) {
-            console.log(error);
-            res.status(500).send({ error });
-        }
-    },
+      res.status(201).send({
+        PersonalRegister: {
+          personal_id: PersonalRegister.id,
+          name: PersonalRegister.name,
+          specialty: PersonalRegister.specialty,
+          email: PersonalRegister.email,
+          password: PersonalRegister.password,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send(error);
+    }
+  },
 
-    async store(req, res) {
-        const { name, specialty, email, password } = req.body;
+  async update(req, res) {
+    const personal_id = req.params.id;
+    let personal = await PersonalTrainer.findByPk(personal_id);
 
-        try {
+    const { name, specialty, email, password } = req.body;
 
-            const PersonalRegister = await PersonalTrainer.create({
-                name,
-                specialty,
-                email,
-                password,
-            });
+    try {
+      if (!personal) res.status(404).send({ error: "Aluno não encontrado" });
 
+      personal.name = name;
+      personal.specialty = specialty;
+      personal.email = email;
+      personal.password = password;
 
-            res.status(201).send({
-                PersonalRegister: {
-                    personal_id: PersonalRegister.id,
-                    name: PersonalRegister.name,
-                    specialty: PersonalRegister.specialty,
-                    email: PersonalRegister.email,
-                    password: PersonalRegister.password,
-                },
+      personal.save();
 
-            });
-        } catch (error) {
-            console.log(error);
-            res.status(500).send(error);
-        }
-    },
+      res.status(204).send();
+    } catch (error) {
+      console.log(error);
+      res.status(500).send(error);
+    }
+  },
 
-    update(req, res) {
+  async delete(req, res) {
+    const personal_id = req.params.id;
 
-    },
+    try {
+      let personal = await PersonalTrainer.findByPk(personal_id);
 
-    delete(req, res) { },
+      if (!personal)
+        return res
+          .status(404)
+          .send({ error: "Personal treiner não encontrado" });
+
+      await personal.destroy();
+
+      return res.status(200).send({ succes: "Registro deletado com sucesso" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send(error);
+    }
+  },
 };

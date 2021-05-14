@@ -12,7 +12,7 @@ class UserStudent extends Model {
         weight: DataTypes.STRING,
         height: DataTypes.STRING,
         cpf: DataTypes.STRING,
-        birth_date: DataTypes.STRING,
+        birth_date: DataTypes.DATEONLY,
         celular: DataTypes.STRING,
       },
       {
