@@ -8,7 +8,7 @@ class Academy extends Model {
         cnpj: DataTypes.STRING,
         telefone: DataTypes.STRING,
         email: DataTypes.STRING,
-        password_academy: DataTypes.STRING,
+        password: DataTypes.STRING,
       },
       {
         tableName: "academy",
@@ -19,6 +19,7 @@ class Academy extends Model {
 
   static associate(models) {
     this.hasOne(models.AddressAcademy, { foreignKey: "academy_id" });
+    this.hasOne(models.PersonalTrainer, { foreignKey: "academy_id" });
   }
 }
 

@@ -10,12 +10,15 @@ class PersonalTrainer extends Model {
         password: DataTypes.STRING,
       },
       {
+        tableName: "personal_trainers",
         sequelize,
       }
     );
   }
 
-  static associate(models) { }
+  static associate(models) { 
+    this.belongsTo(models.Academy, { foreignKey: "academy_id" });
+  }
 }
 
 module.exports = PersonalTrainer;

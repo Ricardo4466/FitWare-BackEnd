@@ -25,7 +25,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      password_academy: {
+      password: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -37,6 +37,7 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
+      
     });
   },
 

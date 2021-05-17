@@ -17,6 +17,7 @@ module.exports = {
       res.status(500).send({ error });
     }
   },
+  
   async find(req, res) {
     const userStudentId = req.params.id;
 
@@ -116,6 +117,7 @@ module.exports = {
       res.status(500).send(error);
     }
   },
+
   async update(req, res) {
     const user_student_id = req.params.id;
     let student = await User_Student.findByPk(user_student_id);

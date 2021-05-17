@@ -36,6 +36,16 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
+      academy_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "academy",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+      
     });
   },
 

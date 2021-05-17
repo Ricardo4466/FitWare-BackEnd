@@ -1,4 +1,5 @@
 const Academy = require("../models/Academy");
+const bcrypt = require("bcryptjs");
 
 module.exports = {
   async index(req, res) {
@@ -41,7 +42,7 @@ module.exports = {
       cnpj,
       telefone,
       email,
-      password_academy,
+      password,
       cep,
       street,
       state,
@@ -49,12 +50,15 @@ module.exports = {
     } = req.body;
 
     try {
+
+      const encryptedPassword = bcrypt.hashSync(password);
+
       const AcademyRegister = await Academy.create({
         name,
         cnpj,
         telefone,
         email,
-        password_academy,
+        password: encryptedPassword,
       });
       //console.log(AcademyRegister);
 
@@ -72,7 +76,6 @@ module.exports = {
           cnpj: AcademyRegister.cnpj,
           telefone: AcademyRegister.telefone,
           email: AcademyRegister.email,
-          password_academy: AcademyRegister.password_academy,
         },
       });
     } catch (error) {

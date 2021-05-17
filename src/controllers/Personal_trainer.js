@@ -1,4 +1,7 @@
 const PersonalTrainer = require("../models/PersonalTrainer");
+const bcrypt = require("bcryptjs");
+
+
 
 module.exports = {
   async index(req, res) {
@@ -34,12 +37,15 @@ module.exports = {
   async store(req, res) {
     const { name, specialty, email, password } = req.body;
 
+    const encryptedPassword = bcrypt.hashSync(password);
+
+
     try {
       const PersonalRegister = await PersonalTrainer.create({
         name,
         specialty,
         email,
-        password,
+        password: encryptedPassword,
       });
 
       res.status(201).send({
@@ -48,7 +54,6 @@ module.exports = {
           name: PersonalRegister.name,
           specialty: PersonalRegister.specialty,
           email: PersonalRegister.email,
-          password: PersonalRegister.password,
         },
       });
     } catch (error) {
