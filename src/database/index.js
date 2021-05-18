@@ -4,12 +4,13 @@ const dbConfig = require("../config/database");
 // IMPORTANDO OS MODELS
 const UserStudent = require("../models/UserStudent");
 const AddressStudent = require("../models/AddressStudent");
-const Academy = require("../models/Academy");
+const Academy = require("../models/AdministratorAcademy");
 const AddressAcademy = require("../models/AddressAcademy");
 const Schedules = require("../models/Schedules");
 const Administrator = require("../models/Administrator");
 const PersonalTrainer = require("../models/PersonalTrainer");
-const SchedulesOnline = require("../models/SchedulesOnline")
+const SchedulesOnline = require("../models/SchedulesOnline");
+const TraningCategory = require("../models/TraningCategories")
 
 const connection = new Sequelize(dbConfig);
 
@@ -22,6 +23,7 @@ Schedules.init(connection);
 Administrator.init(connection);
 PersonalTrainer.init(connection);
 SchedulesOnline.init(connection);
+TraningCategory.init(connection);
 
 // INICIANDO OS RELACIONAMENTOS
 UserStudent.associate(connection.models);
@@ -32,3 +34,4 @@ Schedules.associate(connection.models)
 Administrator.associate(connection.models);
 PersonalTrainer.associate(connection.models);
 SchedulesOnline.associate(connection.models);
+TraningCategory.associate(connection.models);

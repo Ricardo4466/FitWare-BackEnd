@@ -1,4 +1,4 @@
-const Academy = require("../models/Academy");
+const Academy = require("../models/AdministratorAcademy");
 const bcrypt = require("bcryptjs");
 
 module.exports = {
@@ -50,6 +50,15 @@ module.exports = {
     } = req.body;
 
     try {
+
+      
+    let userAdmin = await Academy.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (userAdmin) return res.status(400).send({ error: "Ops... Email ja cadastrado no sistema." });
 
       const encryptedPassword = bcrypt.hashSync(password);
 
@@ -103,11 +112,11 @@ module.exports = {
     try {
       if (!academy) res.status(404).send({ error: "Academia não encontrada" });
 
-      academy.name = name;
       academy.password_academy = password_academy;
-      academy.cnpj = cnpj;
       academy.telefone = telefone;
       academy.email = email;
+      academy.name = name;
+      academy.cnpj = cnpj;
 
       const address = await academy.getAddressAcademy();
       address.street = street;

@@ -37,6 +37,16 @@ module.exports = {
   async store(req, res) {
     const { name, specialty, email, password } = req.body;
 
+
+    let userPersonal = await PersonalTrainer.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (userPersonal) return res.status(400).send({ error: "Ops... Email ja cadastrado no sistema." });
+
+
     const encryptedPassword = bcrypt.hashSync(password);
 
 

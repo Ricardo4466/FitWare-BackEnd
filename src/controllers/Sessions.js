@@ -1,6 +1,6 @@
 const UserStudent = require("../models/UserStudent");
 const PersonalTrainer = require("../models/PersonalTrainer");
-const Administrador = require("../models/Academy");
+const Administrador = require("../models/AdministratorAcademy");
 
 const bcrypt = require("bcryptjs");
 
@@ -53,7 +53,7 @@ module.exports = {
           user: {
             userId: user.id,
             userName: user.name,
-            user: user.email,
+            userEmail: user.email,
             image: user.image,
           },
           perfil,

@@ -17,7 +17,7 @@ class AddressAcademy extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Academy, { foreignKey: "academy_id" });
+    this.belongsTo(models.AdministratorAcademy, { foreignKey: "academy_id" });
   }
 }
 

@@ -6,17 +6,19 @@ const academyController = require("./controllers/Academy");
 const sessionController = require("./controllers/sessions");
 const userStudentController = require("./controllers/User_Students");
 const PersonalTrainerController = require("./controllers/Personal_trainer");
+const scheduleController = require("./controllers/schedules")
 
 //Importa os validators
+const scheduleValidator = require("./validators/scheduleValidator");
 const userStudentValidator = require("./validators/studentUserValidator");
+const administratorValidator = require("./validators/administratorUserValidator");
 const userPersonalTrainerValidator = require("./validators/personalUserValidator");
-
 
 const routes = express.Router();
 
 routes.post("/sessions", sessionController.store);
-routes.post("/academy", academyController.store);
-routes.post("/academy/:id/userAcademy", userStudentValidator.create, userStudentController.store);
+routes.post("/academy", administratorValidator.create, academyController.store);
+routes.post("/userAcademy", userStudentValidator.create, userStudentController.store);
 routes.post("/personalTrainer", userPersonalTrainerValidator.create, PersonalTrainerController.store);
 
 routes.use(authMiddleware);
@@ -38,5 +40,13 @@ routes.get("/personalTrainer", PersonalTrainerController.index);
 routes.get("/personalTrainer/:id", PersonalTrainerController.find);
 routes.delete("/personalTrainer/:id", PersonalTrainerController.delete);
 routes.put("/personalTrainer/:id", userPersonalTrainerValidator.create, PersonalTrainerController.update);
+
+// schedules routes configuration
+
+routes.post("/schedule", scheduleController.find);
+routes.post("/schedule/:id", scheduleController.index);
+routes.post("/schedule/:id", scheduleController.delete);
+routes.post("/scheduled/:id", scheduleController.update);
+routes.post("/schedule", scheduleValidator.create, scheduleController.store);
 
 module.exports = routes;

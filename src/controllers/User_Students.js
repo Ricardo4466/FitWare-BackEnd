@@ -54,11 +54,13 @@ module.exports = {
     } = req.body;
 
     try {
-      if (first_name === "")
-        return res.status(400).send({
-          error:
-            "Não é possivel efetuar o cadastro sem que primeiro nome não esteja preenchido!",
-        });
+      let user = await User_Student.findOne({
+        where: {
+          cpf,
+        },
+      });
+
+      if (user) return res.status(400).send({ error: "Ops... Esse CPF ja esta cadastrado!" });
 
       const encryptedPassword = bcrypt.hashSync(password);
 
@@ -118,8 +120,10 @@ module.exports = {
     }
   },
 
-  async update(req, res) {
+  async update(req, res) {  
+
     const user_student_id = req.params.id;
+    
     let student = await User_Student.findByPk(user_student_id);
 
     const {
@@ -148,7 +152,8 @@ module.exports = {
       student.email = email;
 
       // Atualizando tambem a tabela de endereço
-      const address = await student.getAddressStudent();
+      const address = await student.getAddressStudent(); 
+
       address.street = street;
       address.state = state;
       address.city = city;
@@ -158,6 +163,7 @@ module.exports = {
       address.save();
 
       res.status(204).send();
+
     } catch (error) {
       console.log(error);
       res.status(500).send(error);

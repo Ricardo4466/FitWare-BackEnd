@@ -4,7 +4,7 @@ class Schedules extends Model {
   static init(sequelize) {
     super.init(
       {
-        date: DataTypes.STRING,
+        date: DataTypes.DATEONLY,
         hour: DataTypes.STRING,
         limitPerson: DataTypes.STRING,
         duration: DataTypes.STRING,
