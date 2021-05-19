@@ -4,9 +4,12 @@ const authMiddleware = require("./middleware/authorization");
 // Importar o controller
 const academyController = require("./controllers/Academy");
 const sessionController = require("./controllers/sessions");
+const scheduleController = require("./controllers/schedules");
 const userStudentController = require("./controllers/User_Students");
-const PersonalTrainerController = require("./controllers/Personal_trainer");
-const scheduleController = require("./controllers/schedules")
+const personalTrainerController = require("./controllers/Personal_trainer");
+const traningCategoriesController = require("./controllers/TraningCategories");
+
+
 
 //Importa os validators
 const scheduleValidator = require("./validators/scheduleValidator");
@@ -14,12 +17,14 @@ const userStudentValidator = require("./validators/studentUserValidator");
 const administratorValidator = require("./validators/administratorUserValidator");
 const userPersonalTrainerValidator = require("./validators/personalUserValidator");
 
+
+
 const routes = express.Router();
 
 routes.post("/sessions", sessionController.store);
-routes.post("/academy", administratorValidator.create, academyController.store);
-routes.post("/userAcademy", userStudentValidator.create, userStudentController.store);
-routes.post("/personalTrainer", userPersonalTrainerValidator.create, PersonalTrainerController.store);
+routes.post("/academy", academyController.store);
+routes.post("/userAcademy", userStudentController.store);
+routes.post("/personalTrainer", userPersonalTrainerValidator.create, personalTrainerController.store); 
 
 routes.use(authMiddleware);
 
@@ -36,17 +41,19 @@ routes.put("/academy/:id", academyController.update);
 routes.delete("/academy/:id", academyController.delete);
 
 // personal Trainer routes configuration
-routes.get("/personalTrainer", PersonalTrainerController.index);
-routes.get("/personalTrainer/:id", PersonalTrainerController.find);
-routes.delete("/personalTrainer/:id", PersonalTrainerController.delete);
-routes.put("/personalTrainer/:id", userPersonalTrainerValidator.create, PersonalTrainerController.update);
+routes.get("/personalTrainer", personalTrainerController.index);
+routes.get("/personalTrainer/:id", personalTrainerController.find);
+routes.delete("/personalTrainer/:id", personalTrainerController.delete);
+routes.put("/personalTrainer/:id", userPersonalTrainerValidator.create, personalTrainerController.update);
 
 // schedules routes configuration
+routes.get("/schedule", scheduleController.find);
+routes.get("/schedule/:id", scheduleController.index);
+routes.delete("/schedule/:id", scheduleController.delete);
+routes.put("/scheduled/:id", scheduleController.update);
+routes.post("/schedule", scheduleController.store);
 
-routes.post("/schedule", scheduleController.find);
-routes.post("/schedule/:id", scheduleController.index);
-routes.post("/schedule/:id", scheduleController.delete);
-routes.post("/scheduled/:id", scheduleController.update);
-routes.post("/schedule", scheduleValidator.create, scheduleController.store);
+// traning categories routes configuration
+routes.get("/traningCategories", traningCategoriesController.index);
 
 module.exports = routes;

@@ -2,10 +2,7 @@ const jwt = require("jsonwebtoken");
 const auth = require("../config/auth");
 
 module.exports = (req, res, next) => {
-  const {authorization} = req.headers;
-
-  console.log(authorization);
-  
+  const { authorization } = req.headers;
 
   if (!authorization)
     return res.status(401).send({ error: "Token não informado!" });
@@ -17,10 +14,10 @@ module.exports = (req, res, next) => {
   try {
     const payload = jwt.verify(token, auth.secret);
 
-    req.UserstudentId = payload.UserstudentId;
+    req.userId = payload.userId;
+    req.userPerfil = payload.perfil;
 
     return next();
-
   } catch (error) {
     res.status(401).send({ error: "Token Invalido" });
   }

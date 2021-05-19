@@ -29,6 +29,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    queryInterface.dropTable('Traning_categoriesnpx sequelize-cli seed:generate --name demo-user');
+    queryInterface.dropTable('Traning_categories');
   }
 };

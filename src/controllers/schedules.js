@@ -1,5 +1,6 @@
-const Schedule = require("../models/Schedules");
+const Schedule = require("../models/Schedule");
 const AdministratorAcademy = require("../models/AdministratorAcademy");
+const TraningCategorie = require("../models/TraningCategorie");
 
 module.exports = {
   async index(req, res) {},
@@ -23,31 +24,42 @@ module.exports = {
   },
 
   async store(req, res) {
-    const { hour, date, limitPerson, duration } = req.body;
+    const { hour, date, limit_person, duration, traningCategory } = req.body;
 
-    const { administratorId } = req;
+    const { userId } = req;
+
+    console.log(limit_person);
+
 
     try {
-      let admin = await AdministratorAcademy.findByPk(administratorId);
+      let admin = await AdministratorAcademy.findByPk(userId);
 
       if (!admin)
         return res.status(404).send({ error: "Administrador não encontrado." });
 
-      let schedule = await Schedule.createSchedule({
+      let schedule = await Schedule.create({
         hour,
         date,
-        limitPerson,
+        limit_person,
         duration,
       });
 
+      const traning = await TraningCategorie.findByPk(traningCategory);
+
+      await schedule.addTraningCategorys(traning);
+
       res.status(201).send({
-        id: schedule.id,
+        schedule_id: schedule.id,
         hour: schedule.hour,
         date: schedule.date,
-        limitPerson: schedule.limitPerson,
+        limit_person: schedule.limit_Person,
         duration: schedule.duration,
+        traning_categorie_id:traningCategory
+        
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   async update(req, res) {
@@ -97,10 +109,15 @@ module.exports = {
 
       await schedule.destroy();
       res.status(204).send({ sucess: "Dados deletados com sucesso!" });
-      
     } catch (error) {
       console.log(error);
       res.status(500).send(error);
     }
   },
 };
+
+// for (let assoc of Object.keys(Schedule.associations)) {
+//   for (let accessor of Object.keys(Schedule.associations[assoc].accessors)) {
+//     console.log(Schedule.name + '.' + Schedule.associations[assoc].accessors[accessor] + '()');
+//   }
+// }
