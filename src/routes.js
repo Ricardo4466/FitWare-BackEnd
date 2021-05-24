@@ -22,7 +22,7 @@ const userPersonalTrainerValidator = require("./validators/personalUserValidator
 const routes = express.Router();
 
 routes.post("/sessions", sessionController.store);
-routes.post("/academy", academyController.store);
+routes.post("/academy",administratorValidator.create, academyController.store);
 routes.post("/userAcademy", userStudentController.store);
 routes.post("/personalTrainer", userPersonalTrainerValidator.create, personalTrainerController.store); 
 
@@ -51,7 +51,7 @@ routes.get("/schedule", scheduleController.find);
 routes.get("/schedule/:id", scheduleController.index);
 routes.delete("/schedule/:id", scheduleController.delete);
 routes.put("/scheduled/:id", scheduleController.update);
-routes.post("/schedule", scheduleController.store);
+routes.post("/schedule", scheduleValidator.create, scheduleController.store);
 
 // traning categories routes configuration
 routes.get("/traningCategories", traningCategoriesController.index);

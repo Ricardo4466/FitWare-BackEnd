@@ -3,7 +3,9 @@ const AdministratorAcademy = require("../models/AdministratorAcademy");
 const TraningCategorie = require("../models/TraningCategorie");
 
 module.exports = {
-  async index(req, res) {},
+  async index(req, res) {
+
+  },
 
   async find(req, res) {
     const scheduleId = req.params.id;
@@ -46,7 +48,7 @@ module.exports = {
 
       const traning = await TraningCategorie.findByPk(traningCategory);
 
-      await schedule.addTraningCategorys(traning);
+      await schedule.addTraningCategory(traning);
 
       res.status(201).send({
         schedule_id: schedule.id,
@@ -73,7 +75,7 @@ module.exports = {
       const schedule = await Schedule.findByPk(scheduleId);
 
       if (!schedule)
-        return res.status(404).send({ error: "Ops... Agenda inexistente" });
+        return res.status(404).send({ error: "Ops... Aula inexistente" });
 
       if (schedule.AdministratorId != administratorId)
         res.status(404).send({ error: " Autorização Negada!" });
@@ -84,7 +86,7 @@ module.exports = {
         (schedule.duration = duration);
 
       schedule.save();
-      res.status(204).send("Informações de agendamentos atualizadas");
+      res.status(204).send("Informações da aula atualizadas");
     } catch (error) {
       console.log(error);
       res.status(500).send(error);
@@ -105,7 +107,7 @@ module.exports = {
       });
 
       if (!schedule)
-        res.status(404).send({ error: "Agendamento não encontrado" });
+        res.status(404).send({ error: "Aula não encontrado" });
 
       await schedule.destroy();
       res.status(204).send({ sucess: "Dados deletados com sucesso!" });
