@@ -16,7 +16,7 @@ class TraningCategory extends Model {
   static associate(models) {
     this.belongsToMany(models.Schedule, {
       through: "schedule_category",
-    });
+});
   }
 }
 

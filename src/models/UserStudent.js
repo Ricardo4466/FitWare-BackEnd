@@ -23,6 +23,7 @@ class UserStudent extends Model {
   }
   static associate(models) {
     this.hasOne(models.AddressStudent, { foreignKey: "student_id" });
+    this.belongsToMany(models.Schedule, {through: "schedule_student"});
   }
 }
 
