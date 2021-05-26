@@ -1,8 +1,6 @@
 const PersonalTrainer = require("../models/PersonalTrainer");
+
 const bcrypt = require("bcryptjs");
-
-
-
 module.exports = {
   async index(req, res) {
     try {
@@ -108,7 +106,7 @@ module.exports = {
 
       await personal.destroy();
 
-      return res.status(200).send({ succes: "Registro deletado com sucesso" });
+      return res.status(200).send({succes: "Registro deletado com sucesso" });
     } catch (error) {
       console.log(error);
       res.status(500).send(error);

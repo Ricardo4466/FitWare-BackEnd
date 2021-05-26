@@ -3,8 +3,19 @@ const AdministratorAcademy = require("../models/AdministratorAcademy");
 const TraningCategorie = require("../models/TraningCategorie");
 
 module.exports = {
+  
   async index(req, res) {
+    try {
+      const schedule = await Schedule.findAll({});
 
+      if (!schedule)
+      return res.status(404).send({ error: "Ops... no momento ainda não há aulas disponiveis" });
+
+      res.send(schedule);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ error });
+    }
   },
 
   async find(req, res) {

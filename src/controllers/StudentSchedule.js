@@ -7,9 +7,8 @@ module.exports = {
   index(req, res) {},
 
   async store(req, res) {
-    const { scheduleId, limit_person } = req;
-
-    const { studentId } = req;
+    const { scheduleId } = req.params;
+    const { userId } = req;
 
     try {
       let schedule = await Schedule.findByPk(scheduleId);
@@ -17,20 +16,36 @@ module.exports = {
       if (!schedule)
         return res.status(404).send({ error: "Aula não encontrada" });
 
-      if (limit_person === schedule.limit_person)
-        return res.status(404).send({ error: "Ops... Vagas esgotadas" });
+      const count = await Schedule.count({
+        include: [
+          {
+            association: "UserStudents",
+            required: true,
+          },
+        ],
+        where: {
+          id: scheduleId,
+        },
+      });
 
-       const student = await UserStudent.findByPk(studentId);
+      // return console.log(count);
+
+      if (count >= schedule.limit_person )
+        return res.status(400).send({ error: "Ops... Vagas esgotadas" });
+
+      const student = await UserStudent.findByPk(userId);
+
+      // console.log(userId);
 
       await schedule.addUserStudent(student);
 
       res.status(201).send({
         schedule_id: schedule.id,
-        studentId: studentId
+        userId: userId,
       });
-
-
-    } catch (error) {}
+    } catch (e) {
+      console.log(e);
+    }
   },
 
   update(req, res) {},

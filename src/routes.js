@@ -47,8 +47,8 @@ routes.delete("/personalTrainer/:id", personalTrainerController.delete);
 routes.put("/personalTrainer/:id", userPersonalTrainerValidator.create, personalTrainerController.update);
 
 // schedules routes configuration
-routes.get("/schedule", scheduleController.find);
-routes.get("/schedule/:id", scheduleController.index);
+routes.get("/schedule/:id", scheduleController.find);
+routes.get("/schedule", scheduleController.index);
 routes.delete("/schedule/:id", scheduleController.delete);
 routes.put("/scheduled/:id", scheduleController.update);
 routes.post("/schedule",  scheduleController.store);
@@ -57,6 +57,6 @@ routes.post("/schedule",  scheduleController.store);
 routes.get("/traningCategories", traningCategoriesController.index);
 
 // Schedules of student routes configuration
-routes.post("/schedule/student",StudentScheduleController.store);
+routes.post("/schedule/:scheduleId/student", StudentScheduleController.store);
 
 module.exports = routes;

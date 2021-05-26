@@ -18,7 +18,7 @@ module.exports = {
         allowNull: false,
       },
       limit_person: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       duration: {
