@@ -3,13 +3,14 @@ const AdministratorAcademy = require("../models/AdministratorAcademy");
 const TraningCategorie = require("../models/TraningCategorie");
 
 module.exports = {
-  
   async index(req, res) {
     try {
       const schedule = await Schedule.findAll({});
 
       if (!schedule)
-      return res.status(404).send({ error: "Ops... no momento ainda não há aulas disponiveis" });
+        return res
+          .status(404)
+          .send({ error: "Ops... no momento ainda não há aulas disponiveis" });
 
       res.send(schedule);
     } catch (error) {
@@ -23,7 +24,7 @@ module.exports = {
 
     try {
       let schedule = await Schedule.findByPk(scheduleId, {
-        attributes: ["hour", "date", "limitPerson", "duration"],
+        attributes: ["hour", "date", "limit_person", "duration"],
       });
 
       if (!schedule)
@@ -42,7 +43,6 @@ module.exports = {
     const { userId } = req;
 
     console.log(limit_person);
-
 
     try {
       let admin = await AdministratorAcademy.findByPk(userId);
@@ -67,8 +67,7 @@ module.exports = {
         date: schedule.date,
         limit_person: schedule.limit_Person,
         duration: schedule.duration,
-        traning_categorie_id:traningCategory
-        
+        traning_categorie_id: traningCategory,
       });
     } catch (error) {
       console.log(error);
@@ -117,8 +116,7 @@ module.exports = {
         },
       });
 
-      if (!schedule)
-        res.status(404).send({ error: "Aula não encontrado" });
+      if (!schedule) res.status(404).send({ error: "Aula não encontrado" });
 
       await schedule.destroy();
       res.status(204).send({ sucess: "Dados deletados com sucesso!" });

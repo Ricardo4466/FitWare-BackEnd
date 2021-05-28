@@ -35,18 +35,18 @@ module.exports = {
   async store(req, res) {
     const { name, specialty, email, password } = req.body;
 
-
     let userPersonal = await PersonalTrainer.findOne({
       where: {
         email,
       },
     });
 
-    if (userPersonal) return res.status(400).send({ error: "Ops... Email ja cadastrado no sistema." });
-
+    if (userPersonal)
+      return res
+        .status(400)
+        .send({ error: "Ops... Email ja cadastrado no sistema." });
 
     const encryptedPassword = bcrypt.hashSync(password);
-
 
     try {
       const PersonalRegister = await PersonalTrainer.create({
@@ -106,7 +106,7 @@ module.exports = {
 
       await personal.destroy();
 
-      return res.status(200).send({succes: "Registro deletado com sucesso" });
+      return res.status(200).send({ succes: "Registro deletado com sucesso" });
     } catch (error) {
       console.log(error);
       res.status(500).send(error);

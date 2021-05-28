@@ -37,28 +37,20 @@ module.exports = {
   },
 
   async store(req, res) {
-    const {
-      name,
-      cnpj,
-      telefone,
-      email,
-      password,
-      cep,
-      street,
-      state,
-      city,
-    } = req.body;
+    const { name, cnpj, telefone, email, password, cep, street, state, city } =
+      req.body;
 
     try {
+      let userAdmin = await Academy.findOne({
+        where: {
+          email,
+        },
+      });
 
-      
-    let userAdmin = await Academy.findOne({
-      where: {
-        email,
-      },
-    });
-
-    if (userAdmin) return res.status(400).send({ error: "Ops... Email ja cadastrado no sistema." });
+      if (userAdmin)
+        return res
+          .status(400)
+          .send({ error: "Ops... Email ja cadastrado no sistema." });
 
       const encryptedPassword = bcrypt.hashSync(password);
 

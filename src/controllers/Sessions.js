@@ -15,7 +15,7 @@ module.exports = {
         where: {
           email,
         },
-        user: perfil= "student"
+        user: (perfil = "student"),
       });
 
       if (!user) {
@@ -23,41 +23,38 @@ module.exports = {
           where: {
             email,
           },
-          user: perfil= "PersonalTrainer"
+          user: (perfil = "PersonalTrainer"),
         });
 
         if (!user) {
-          user =  await Administrador.findOne({
+          user = await Administrador.findOne({
             where: {
               email,
             },
-            user: perfil= "admin"
+            user: (perfil = "admin"),
           });
         }
       }
 
       if (user && !bcrypt.compareSync(password, user.password)) {
-        return res
-          .status(403) 
-          .send({ error: "Usuario e/ou senha invalidos" });
+        return res.status(403).send({ error: "Usuario e/ou senha invalidos" });
       }
 
-      
-        const token = generateToken({
-          userId: user.id,
-          perfil,
-          userName: user.name,
-        });
+      const token = generateToken({
+        userId: user.id,
+        perfil,
+        userName: user.name,
+      });
 
-        res.status(201).send({
-          user: {
-            userId: user.id,
-            userName: user.name,
-            userEmail: user.email,
-            image: user.image,
-          },
-          perfil,
-          token,
+      res.status(201).send({
+        user: {
+          userId: user.id,
+          userName: user.name,
+          userEmail: user.email,
+          image: user.image,
+        },
+        perfil,
+        token,
       });
     } catch (error) {
       console.log(error);

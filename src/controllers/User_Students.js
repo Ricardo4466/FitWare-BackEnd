@@ -6,9 +6,33 @@ module.exports = {
   async index(req, res) {
     try {
       const userStudent = await User_Student.findAll({
+        attributes: [
+          "id",
+          "first_name",
+          "surname",
+          "email",
+          "image_profile",
+          "cpf",
+          "birth_date",
+          "created_at",
+        ],
         include: {
           association: "AddressStudent",
         },
+        // where: {
+        //   [Op.or]: [
+        //     {
+        //       first_name: {
+        //         [Op.substring]: search,
+        //       },
+        //     },
+        //     {
+        //       surname: {
+        //         [Op.substring]: search,
+        //       },
+        //     },
+        //   ],
+        // },
       });
 
       res.send(userStudent);
@@ -17,7 +41,7 @@ module.exports = {
       res.status(500).send({ error });
     }
   },
-  
+
   async find(req, res) {
     const userStudentId = req.params.id;
 
@@ -60,7 +84,10 @@ module.exports = {
         },
       });
 
-      if (user) return res.status(400).send({ error: "Ops... Esse CPF ja esta cadastrado!" });
+      if (user)
+        return res
+          .status(400)
+          .send({ error: "Ops... Esse CPF ja esta cadastrado!" });
 
       const encryptedPassword = bcrypt.hashSync(password);
 
@@ -120,10 +147,9 @@ module.exports = {
     }
   },
 
-  async update(req, res) {  
-
+  async update(req, res) {
     const user_student_id = req.params.id;
-    
+
     let student = await User_Student.findByPk(user_student_id);
 
     const {
@@ -152,7 +178,7 @@ module.exports = {
       student.email = email;
 
       // Atualizando tambem a tabela de endereço
-      const address = await student.getAddressStudent(); 
+      const address = await student.getAddressStudent();
 
       address.street = street;
       address.state = state;
@@ -163,7 +189,6 @@ module.exports = {
       address.save();
 
       res.status(204).send();
-
     } catch (error) {
       console.log(error);
       res.status(500).send(error);

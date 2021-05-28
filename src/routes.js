@@ -8,7 +8,7 @@ const scheduleController = require("./controllers/schedules");
 const userStudentController = require("./controllers/User_Students");
 const personalTrainerController = require("./controllers/Personal_trainer");
 const traningCategoriesController = require("./controllers/TraningCategories");
-const StudentScheduleController = require("./controllers/StudentSchedule");
+const studentScheduleController = require("./controllers/StudentSchedule");
 
 
 //Importa os validators
@@ -57,6 +57,8 @@ routes.post("/schedule",  scheduleController.store);
 routes.get("/traningCategories", traningCategoriesController.index);
 
 // Schedules of student routes configuration
-routes.post("/schedule/:scheduleId/student", StudentScheduleController.store);
+routes.post("/schedule/:scheduleId/student", studentScheduleController.store);
+routes.get("/schedulestudent", studentScheduleController.index);
+
 
 module.exports = routes;

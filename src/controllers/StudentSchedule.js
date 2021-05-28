@@ -2,9 +2,24 @@ const Schedule = require("../models/Schedule");
 const UserStudent = require("../models/UserStudent");
 
 module.exports = {
-  find(req, res) {},
+  async index(req, res) {
+    try {
+      const scheduleStudent = await Schedule.findAll({
+        attributes: ["id", "date", "hour", "limit_person", "duration"],
+        include: {
+          association: "UserStudents",
+          attributes: ["id", "first_name", "surname", "image_profile"],
+          through: { attributes: [] },
+        },
+      });
 
-  index(req, res) {},
+      res.send(scheduleStudent);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  find(req, res) {},
 
   async store(req, res) {
     const { scheduleId } = req.params;
@@ -30,8 +45,8 @@ module.exports = {
 
       // return console.log(count);
 
-      if (count >= schedule.limit_person )
-        return res.status(400).send({ error: "Ops... Vagas esgotadas" });
+      if (count >= schedule.limit_person)
+        return res.status(400).send({ error: "Ops... Vagas Esgotadas" });
 
       const student = await UserStudent.findByPk(userId);
 
