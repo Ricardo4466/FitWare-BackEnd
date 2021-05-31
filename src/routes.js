@@ -57,8 +57,8 @@ routes.post("/schedule",  scheduleController.store);
 routes.get("/traningCategories", traningCategoriesController.index);
 
 // Schedules of student routes configuration
+routes.get("/schedule/:scheduleId/student", studentScheduleController.index);
 routes.post("/schedule/:scheduleId/student", studentScheduleController.store);
-routes.get("/schedulestudent", studentScheduleController.index);
 
 
 module.exports = routes;

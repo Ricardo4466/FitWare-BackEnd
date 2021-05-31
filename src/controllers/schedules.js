@@ -40,16 +40,16 @@ module.exports = {
   async store(req, res) {
     const { hour, date, limit_person, duration, traningCategory } = req.body;
 
-    const { userId } = req;
+    const { userPerfil } = req;
 
-    console.log(limit_person);
+    if (userPerfil !== "admin" && userPerfil !== "PersonalTrainer") {
+      return res.status(401).send({ erro: "Acesso negado" });
+    }
+
+    // console.log(limit_person);
 
     try {
-      let admin = await AdministratorAcademy.findByPk(userId);
-
-      if (!admin)
-        return res.status(404).send({ error: "Administrador não encontrado." });
-
+    
       let schedule = await Schedule.create({
         hour,
         date,

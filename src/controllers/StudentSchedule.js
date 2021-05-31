@@ -3,8 +3,11 @@ const UserStudent = require("../models/UserStudent");
 
 module.exports = {
   async index(req, res) {
+    const { scheduleId } = req.params;
+
+
     try {
-      const scheduleStudent = await Schedule.findAll({
+      const scheduleStudent = await Schedule.findByPk(scheduleId, {
         attributes: ["id", "date", "hour", "limit_person", "duration"],
         include: {
           association: "UserStudents",
