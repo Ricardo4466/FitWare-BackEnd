@@ -13,6 +13,7 @@ module.exports = {
           "email",
           "image_profile",
           "cpf",
+          "celular",
           "birth_date",
           "created_at",
         ],
