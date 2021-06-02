@@ -1,9 +1,12 @@
 const User_Student = require("../models/UserStudent");
+const { Op } = require("sequelize");
 
 const bcrypt = require("bcryptjs");
 
 module.exports = {
   async index(req, res) {
+    const { search } = req.query;
+
     try {
       const userStudent = await User_Student.findAll({
         attributes: [
@@ -20,20 +23,20 @@ module.exports = {
         include: {
           association: "AddressStudent",
         },
-        // where: {
-        //   [Op.or]: [
-        //     {
-        //       first_name: {
-        //         [Op.substring]: search,
-        //       },
-        //     },
-        //     {
-        //       surname: {
-        //         [Op.substring]: search,
-        //       },
-        //     },
-        //   ],
-        // },
+        where: {
+          [Op.or]: [
+            {
+              first_name: {
+                [Op.substring]: search,
+              },
+            },
+            {
+              surname: {
+                [Op.substring]: search,
+              },
+            },
+          ],
+        },
       });
 
       res.send(userStudent);

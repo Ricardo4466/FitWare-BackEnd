@@ -38,7 +38,8 @@ module.exports = {
   },
 
   async store(req, res) {
-    const { hour, date, limit_person, duration, traningCategory } = req.body;
+    const { hour, date, limit_person, duration, traningCategory, is_remote } =
+      req.body;
 
     const { userPerfil } = req;
 
@@ -49,13 +50,22 @@ module.exports = {
     // console.log(limit_person);
 
     try {
-    
-      let schedule = await Schedule.create({
-        hour,
-        date,
-        limit_person,
-        duration,
-      });
+      let schedule;
+
+      if (is_remote)
+        schedule = await Schedule.create({
+          hour,
+          date,
+          duration,
+          link,
+        });
+      else
+        schedule = await Schedule.create({
+          hour,
+          date,
+          limit_person,
+          duration,
+        });
 
       const traning = await TraningCategorie.findByPk(traningCategory);
 
@@ -77,9 +87,9 @@ module.exports = {
   async update(req, res) {
     const scheduleId = req.params.id;
 
-    const { administratorId } = req;
+    const { userPerfil } = req;
 
-    const { hour, date, limitPerson, duration } = req.body;
+    const { hour, date, limit_person, duration } = req.body;
 
     try {
       const schedule = await Schedule.findByPk(scheduleId);
@@ -87,16 +97,17 @@ module.exports = {
       if (!schedule)
         return res.status(404).send({ error: "Ops... Aula inexistente" });
 
-      if (schedule.AdministratorId != administratorId)
-        res.status(404).send({ error: " Autorização Negada!" });
+      if (userPerfil !== "admin" && userPerfil !== "PersonalTrainer") {
+        return res.status(401).send({ error: "Acesso negado" });
+      }
 
       (schedule.hour = hour),
         (schedule.date = date),
-        (schedule.limitPerson = limitPerson),
+        (schedule.limit_person = limit_person),
         (schedule.duration = duration);
 
       schedule.save();
-      res.status(204).send("Informações da aula atualizadas");
+      res.status(204).send( "Informações da aula atualizadas");
     } catch (error) {
       console.log(error);
       res.status(500).send(error);
@@ -106,17 +117,21 @@ module.exports = {
   async delete(req, res) {
     const scheduleId = req.params.id;
 
-    const { administratorId } = req;
+    const { userPerfil } = req;
 
     try {
       const schedule = await Schedule.findOne({
         where: {
           id: scheduleId,
-          administrator_Id: administratorId,
+          administrator_Id: userPerfil,
         },
       });
 
       if (!schedule) res.status(404).send({ error: "Aula não encontrado" });
+
+      if (userPerfil !== "admin" && userPerfil !== "PersonalTrainer") {
+        return res.status(401).send({ error: "Acesso negado!" });
+      }
 
       await schedule.destroy();
       res.status(204).send({ sucess: "Dados deletados com sucesso!" });

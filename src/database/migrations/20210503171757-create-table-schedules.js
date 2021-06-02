@@ -25,6 +25,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      is_remote: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
+      link: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
