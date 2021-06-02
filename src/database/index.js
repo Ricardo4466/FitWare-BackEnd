@@ -33,3 +33,9 @@ PersonalTrainer.associate(connection.models);
 
 
 
+
+// for (let assoc of Object.keys(Schedule.associations)) {
+//   for (let accessor of Object.keys(Schedule.associations[assoc].accessors)) {
+//     console.log(Schedule.name + '.' + Schedule.associations[assoc].accessors[accessor] + '()');
+//   }
+// }

@@ -26,8 +26,6 @@ module.exports = {
         attributes: ["id", "name", "email", "telefone"],
       });
 
-      //const address = await academy.getAddressStudent();
-
       if (!academy)
         return res.status(404).send({ erro: "Academia não encontrada" });
       res.send(academy);
@@ -71,7 +69,6 @@ module.exports = {
         email,
         password: encryptedPassword,
       });
-      //console.log(AcademyRegister);
 
       AcademyRegister.createAddressAcademy({
         cep,
