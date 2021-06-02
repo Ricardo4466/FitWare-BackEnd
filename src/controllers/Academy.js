@@ -5,6 +5,7 @@ module.exports = {
   async index(req, res) {
     try {
       const academy = await Academy.findAll({
+        attributes: ["id", "name", "cnpj", "telefone", "email"],
         include: {
           association: "AddressAcademy",
         },
@@ -37,8 +38,17 @@ module.exports = {
   },
 
   async store(req, res) {
-    const { name, cnpj, telefone, email, password, cep, street, state, city } =
-      req.body;
+    const {
+      name,
+      cnpj,
+      telefone,
+      email,
+      password,
+      cep,
+      street,
+      state,
+      city,
+    } = req.body;
 
     try {
       let userAdmin = await Academy.findOne({

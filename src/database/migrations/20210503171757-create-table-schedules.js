@@ -28,10 +28,11 @@ module.exports = {
       is_remote: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
+        defaultValue: false
       },
       link: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       created_at: {
         type: Sequelize.DATE,

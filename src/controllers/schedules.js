@@ -38,8 +38,15 @@ module.exports = {
   },
 
   async store(req, res) {
-    const { hour, date, limit_person, duration, traningCategory, is_remote } =
-      req.body;
+    const {
+      hour,
+      date,
+      limit_person,
+      duration,
+      traningCategory,
+      is_remote,
+      link,
+    } = req.body;
 
     const { userPerfil } = req;
 
@@ -50,22 +57,14 @@ module.exports = {
     // console.log(limit_person);
 
     try {
-      let schedule;
-
-      if (is_remote)
-        schedule = await Schedule.create({
-          hour,
-          date,
-          duration,
-          link,
-        });
-      else
-        schedule = await Schedule.create({
-          hour,
-          date,
-          limit_person,
-          duration,
-        });
+      schedule = await Schedule.create({
+        hour,
+        date,
+        duration,
+        limit_person,
+        is_remote,
+        link,
+      });
 
       const traning = await TraningCategorie.findByPk(traningCategory);
 
@@ -77,6 +76,8 @@ module.exports = {
         date: schedule.date,
         limit_person: schedule.limit_Person,
         duration: schedule.duration,
+        is_remote,
+        link,
         traning_categorie_id: traningCategory,
       });
     } catch (error) {
@@ -107,7 +108,7 @@ module.exports = {
         (schedule.duration = duration);
 
       schedule.save();
-      res.status(204).send( "Informações da aula atualizadas");
+      res.status(204).send("Informações da aula atualizadas");
     } catch (error) {
       console.log(error);
       res.status(500).send(error);
@@ -134,6 +135,7 @@ module.exports = {
       }
 
       await schedule.destroy();
+
       res.status(204).send({ sucess: "Dados deletados com sucesso!" });
     } catch (error) {
       console.log(error);

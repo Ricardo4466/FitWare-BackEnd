@@ -1,6 +1,5 @@
-const User_Student = require("../models/UserStudent");
 const { Op } = require("sequelize");
-
+const User_Student = require("../models/UserStudent");
 const bcrypt = require("bcryptjs");
 
 module.exports = {
@@ -38,7 +37,6 @@ module.exports = {
           ],
         },
       });
-
       res.send(userStudent);
     } catch (error) {
       console.log(error);
