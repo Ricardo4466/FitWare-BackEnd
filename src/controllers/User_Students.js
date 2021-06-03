@@ -88,7 +88,7 @@ module.exports = {
 
       if (user)
         return res
-          .status(400)
+          .status(401)
           .send({ error: "Ops... Esse CPF ja esta cadastrado!" });
 
       const encryptedPassword = bcrypt.hashSync(password);
