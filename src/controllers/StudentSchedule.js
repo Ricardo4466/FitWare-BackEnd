@@ -5,6 +5,7 @@ module.exports = {
   async index(req, res) {
     const { scheduleId } = req.params;
 
+
     try {
       const scheduleStudent = await Schedule.findByPk(scheduleId, {
         attributes: ["id", "date", "hour", "limit_person", "duration"],
@@ -45,10 +46,14 @@ module.exports = {
         },
       });
 
+      // return console.log(count);
+
       if (count >= schedule.limit_person)
         return res.status(400).send({ error: "Ops... Vagas Esgotadas" });
 
       const student = await UserStudent.findByPk(userId);
+
+      // console.log(userId);
 
       await schedule.addUserStudent(student);
 
