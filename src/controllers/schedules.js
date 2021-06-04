@@ -38,6 +38,8 @@ module.exports = {
   },
 
   async store(req, res) {
+
+
     const {
       hour,
       date,
@@ -64,6 +66,7 @@ module.exports = {
         limit_person,
         is_remote,
         link,
+        personal_name
       });
 
       const traning = await TraningCategorie.findByPk(traningCategory);
@@ -79,6 +82,8 @@ module.exports = {
         is_remote,
         link,
         traning_categorie_id: traningCategory,
+        userPerfil: userPerfil,
+        personal_name:personal_name
       });
     } catch (error) {
       console.log(error);

@@ -25,6 +25,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      personal_name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       is_remote: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
