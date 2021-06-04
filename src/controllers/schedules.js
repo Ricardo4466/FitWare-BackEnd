@@ -41,6 +41,7 @@ module.exports = {
 
 
     const {
+      personal_name,
       hour,
       date,
       limit_person,
@@ -83,7 +84,7 @@ module.exports = {
         link,
         traning_categorie_id: traningCategory,
         userPerfil: userPerfil,
-        personal_name:personal_name
+        personal_name: personal_name
       });
     } catch (error) {
       console.log(error);
