@@ -1,11 +1,17 @@
 const Schedule = require("../models/Schedule");
-const AdministratorAcademy = require("../models/AdministratorAcademy");
 const TraningCategorie = require("../models/TraningCategorie");
 
 module.exports = {
   async index(req, res) {
     try {
-      const schedule = await Schedule.findAll({});
+      const schedule = await Schedule.findAll({
+        attributes: ["hour", "date", "limit_person", "duration"],
+        include: {
+          attributes: ["id", "description"],
+          model: TraningCategorie,
+          through: { attributes: [] },
+        },
+      });
 
       if (!schedule)
         return res
@@ -29,7 +35,6 @@ module.exports = {
 
       if (!schedule)
         return res.status(404).send({ error: "Ops... Agenda inexistente" });
-
       res.send(schedule);
     } catch (error) {
       console.log(error);
@@ -74,7 +79,7 @@ module.exports = {
 
       const listCategories = await schedule.getTraningCategories({
         attributes: ["id", "description"],
-        includeIgnoreAttributes: false
+        includeIgnoreAttributes: false,
       });
 
       res.status(201).send({
@@ -153,13 +158,13 @@ module.exports = {
   },
 };
 
-for (let assoc of Object.keys(Schedule.associations)) {
-  for (let accessor of Object.keys(Schedule.associations[assoc].accessors)) {
-    console.log(
-      Schedule.name +
-        "." +
-        Schedule.associations[assoc].accessors[accessor] +
-        "()"
-    );
-  }
-}
+// for (let assoc of Object.keys(Schedule.associations)) {
+//   for (let accessor of Object.keys(Schedule.associations[assoc].accessors)) {
+//     console.log(
+//       Schedule.name +
+//         "." +
+//         Schedule.associations[assoc].accessors[accessor] +
+//         "()"
+//     );
+//   }
+// }

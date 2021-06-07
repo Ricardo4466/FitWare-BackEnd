@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 
-class TraningCategory extends Model {
+class TraningCategorie extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -15,9 +15,9 @@ class TraningCategory extends Model {
 
   static associate(models) {
     this.belongsToMany(models.Schedule, {
-      through: "schedule_category",
+      through: "schedule_category", foreignKey: "traning_category_id"
 });
   }
 }
 
-module.exports = TraningCategory;
+module.exports = TraningCategorie;
