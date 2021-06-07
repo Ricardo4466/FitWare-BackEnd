@@ -38,8 +38,6 @@ module.exports = {
   },
 
   async store(req, res) {
-
-
     const {
       personal_name,
       hour,
@@ -52,6 +50,8 @@ module.exports = {
     } = req.body;
 
     const { userPerfil } = req;
+
+    const categoriesArray = traningCategory.split(",");
 
     if (userPerfil !== "admin" && userPerfil !== "PersonalTrainer") {
       return res.status(401).send({ erro: "Acesso negado" });
@@ -67,12 +67,15 @@ module.exports = {
         limit_person,
         is_remote,
         link,
-        personal_name
+        personal_name,
       });
 
-      const traning = await TraningCategorie.findByPk(traningCategory);
+      await schedule.addTraningCategory(categoriesArray);
 
-      await schedule.addTraningCategory(traning);
+      const listCategories = await schedule.getTraningCategories({
+        attributes: ["id", "description"],
+        includeIgnoreAttributes: false
+      });
 
       res.status(201).send({
         schedule_id: schedule.id,
@@ -82,9 +85,9 @@ module.exports = {
         duration: schedule.duration,
         is_remote,
         link,
-        traning_categorie_id: traningCategory,
+        traning_categories: listCategories,
         userPerfil: userPerfil,
-        personal_name: personal_name
+        personal_name: personal_name,
       });
     } catch (error) {
       console.log(error);
@@ -150,8 +153,13 @@ module.exports = {
   },
 };
 
-// for (let assoc of Object.keys(Schedule.associations)) {
-//   for (let accessor of Object.keys(Schedule.associations[assoc].accessors)) {
-//     console.log(Schedule.name + '.' + Schedule.associations[assoc].accessors[accessor] + '()');
-//   }
-// }
+for (let assoc of Object.keys(Schedule.associations)) {
+  for (let accessor of Object.keys(Schedule.associations[assoc].accessors)) {
+    console.log(
+      Schedule.name +
+        "." +
+        Schedule.associations[assoc].accessors[accessor] +
+        "()"
+    );
+  }
+}
