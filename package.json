@@ -7,7 +7,8 @@
     "dev": "nodemon src/server.js",
     "pretest": "cross-env NODE_ENV=test sequelize db:migrate",
     "test": "cross-env NODE_ENV=test jest",
-    "posttest": "cross-env NODE_ENV=test sequelize db:migrate:undo:all"
+    "posttest": "cross-env NODE_ENV=test sequelize db:migrate:undo:all",
+    "db-rebuild": "sequelize db:drop && sequelize db:create && sequelize db:migrate && sequelize db:seed:all"
   },
   "author": "Ricardo Teixeira Lima",
   "license": "ISC",
