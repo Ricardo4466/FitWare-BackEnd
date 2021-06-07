@@ -49,7 +49,7 @@ module.exports = {
 
       if (userAdmin)
         return res
-          .status(400)
+          .status(401)
           .send({ error: "Ops... Email ja cadastrado no sistema." });
 
       const encryptedPassword = bcrypt.hashSync(password);

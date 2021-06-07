@@ -18,18 +18,18 @@ const administratorValidator = require("./validators/administratorUserValidator"
 const userPersonalTrainerValidator = require("./validators/personalUserValidator");
 
 
-
 const routes = express.Router();
 
 routes.post("/sessions", sessionController.store);
 routes.post("/academy",administratorValidator.create, academyController.store);
 routes.post("/userAcademy", userStudentController.store);
 routes.post("/personalTrainer", userPersonalTrainerValidator.create, personalTrainerController.store); 
+routes.get("/userAcademy", userStudentController.index);
 
+// TOKEN routes configuration
 routes.use(authMiddleware);
 
 // students routes configuration
-routes.get("/userAcademy", userStudentController.index);
 routes.get("/userAcademy/:id", userStudentController.find);
 routes.delete("/userAcademy/:id", userStudentController.delete);
 routes.put("/userAcademy/:id", userStudentValidator.create, userStudentController.update);
