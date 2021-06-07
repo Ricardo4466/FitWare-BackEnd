@@ -5,7 +5,7 @@ module.exports = {
   async index(req, res) {
     try {
       const schedule = await Schedule.findAll({
-        attributes: ["hour", "date", "limit_person", "duration"],
+        attributes: ["id", "hour", "date", "limit_person", "duration"],
         include: {
           attributes: ["id", "description"],
           model: TraningCategorie,
@@ -56,13 +56,11 @@ module.exports = {
 
     const { userPerfil } = req;
 
-    const categoriesArray = traningCategory.split(",");
+    
 
     if (userPerfil !== "admin" && userPerfil !== "PersonalTrainer") {
       return res.status(401).send({ erro: "Acesso negado" });
     }
-
-    // console.log(limit_person);
 
     try {
       schedule = await Schedule.create({
@@ -75,7 +73,7 @@ module.exports = {
         personal_name,
       });
 
-      await schedule.addTraningCategory(categoriesArray);
+      await schedule.addTraningCategories(traningCategory);
 
       const listCategories = await schedule.getTraningCategories({
         attributes: ["id", "description"],
@@ -90,7 +88,7 @@ module.exports = {
         duration: schedule.duration,
         is_remote,
         link,
-        traning_categories: listCategories,
+        traning_categories: traningCategory,
         userPerfil: userPerfil,
         personal_name: personal_name,
       });
