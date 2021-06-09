@@ -1,25 +1,24 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    queryInterface.createTable("schedule_student", {
-      id:
-      {
-        type:Sequelize.INTEGER,
-        primaryKey:true,
-        autoIncrement: true
+    queryInterface.createTable("student_academy", {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
       },
-      schedule_id: {
+      academy_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "schedules",
+          model: "academy",
           key: "id",
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      user_student_id: {
+      student_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -41,6 +40,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    queryInterface.dropTable("schedule_student");
-  }
+    queryInterface.dropTable("student_academy");
+  },
 };

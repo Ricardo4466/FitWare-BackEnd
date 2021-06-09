@@ -20,8 +20,7 @@ class AdministratorAcademy extends Model {
   static associate(models) {
     this.hasOne(models.AddressAcademy, { foreignKey: "academy_id" });
     this.hasOne(models.PersonalTrainer, { foreignKey: "academy_id" });
-    this.hasMany(models.UserStudent, { foreignKey: "academy_id" });
-
+    this.belongsToMany(models.UserStudent, { through: "student_academy" });
   }
 }
 
