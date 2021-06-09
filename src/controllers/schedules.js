@@ -55,7 +55,7 @@ module.exports = {
     } = req.body;
 
     const { userPerfil } = req;
-
+    // const academy_id = req.params.id;
     
 
     if (userPerfil !== "admin" && userPerfil !== "PersonalTrainer") {
@@ -71,6 +71,7 @@ module.exports = {
         is_remote,
         link,
         personal_name,
+       
       });
 
       await schedule.addTraningCategories(traningCategory);
