@@ -77,6 +77,7 @@ module.exports = {
       street,
       state,
       city,
+      academy,
     } = req.body;
 
     try {
@@ -105,6 +106,8 @@ module.exports = {
         celular,
       });
 
+      await userStudent.addAdministratorAcademies(academy)
+
       userStudent.createAddressStudent({
         cep,
         street,
@@ -123,6 +126,7 @@ module.exports = {
           height: userStudent.height,
           cpf: userStudent.cpf,
           celular: userStudent.celular,
+          academy: userStudent.academy
         },
       });
     } catch (error) {

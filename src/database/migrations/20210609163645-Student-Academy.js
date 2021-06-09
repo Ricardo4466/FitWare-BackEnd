@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      academy_id: {
+      administrator_academy_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -18,7 +18,7 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      student_id: {
+      user_student_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
