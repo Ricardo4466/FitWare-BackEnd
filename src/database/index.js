@@ -11,7 +11,7 @@ const AddressAcademy = require("../models/AddressAcademy");
 const TraningCategory = require("../models/TraningCategorie");
 const PersonalTrainer = require("../models/PersonalTrainer");
 const ContactType = require("../models/ContactType");
-
+const Gender = require("../models/Gender")
 
 const connection = new Sequelize(dbConfig);
 
@@ -24,7 +24,7 @@ AddressAcademy.init(connection);
 TraningCategory.init(connection);
 PersonalTrainer.init(connection);
 ContactType.init(connection);
-
+Gender.init(connection)
 
 // INICIANDO OS RELACIONAMENTOS
 Schedules.associate(connection.models);
@@ -35,7 +35,7 @@ AddressAcademy.associate(connection.models);
 TraningCategory.associate(connection.models);
 PersonalTrainer.associate(connection.models);
 ContactType.associate(connection.models);
-
+Gender.associate(connection.models)
 
 module.exports = connection;
 // for (let assoc of Object.keys(Schedule.associations)) {
