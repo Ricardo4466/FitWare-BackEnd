@@ -80,9 +80,6 @@ module.exports = {
       //pegar a academia pelo id
       const academy = await AdministratorAcademy.findByPk(id);
 
-      
-
-
       //verificar se ela existe
       if (!academy)
         return res

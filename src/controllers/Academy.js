@@ -37,7 +37,7 @@ module.exports = {
   },
 
   async store(req, res) {
-    const { name, cnpj, telefone, email, password, cep, street, state, city } =
+    const { name, cnpj, telefone, email, password, cep, street, state, city, number } =
       req.body;
 
     try {
@@ -68,6 +68,7 @@ module.exports = {
         street,
         state,
         city,
+        number
       });
 
       res.status(201).send({

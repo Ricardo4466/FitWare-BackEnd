@@ -8,6 +8,7 @@ class AddressStudent extends Model {
         street: DataTypes.STRING,
         state: DataTypes.STRING,
         city: DataTypes.STRING,
+        number: DataTypes.STRING
       },
       {
         tableName: "student_address",
