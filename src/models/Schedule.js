@@ -10,7 +10,7 @@ class Schedule extends Model {
         duration: DataTypes.STRING,
         is_remote: DataTypes.BOOLEAN,
         link: DataTypes.STRING,
-        personal_name: DataTypes.STRING
+        personal_id: DataTypes.INTEGER
       },
       {
         tableName: "schedules",

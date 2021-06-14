@@ -1,6 +1,7 @@
 const Schedule = require("../models/Schedule");
 const AdministratorAcademy = require("../models/AdministratorAcademy");
 const TraningCategorie = require("../models/TraningCategorie");
+const PersonalTrainer = require("../models/PersonalTrainer")
 
 module.exports = {
   async index(req, res) {
@@ -14,11 +15,15 @@ module.exports = {
           "duration",
           "is_remote",
         ],
-        include: {
+        include: [{
           attributes: ["id", "description"],
           model: TraningCategorie,
           through: { attributes: [] },
-        },
+        }, {
+          model: PersonalTrainer,
+          attributes:["name"]
+
+        }],
       });
 
       if (!schedule)
@@ -52,7 +57,7 @@ module.exports = {
 
   async store(req, res) {
     const {
-      personal_name,
+      personal_id,
       hour,
       date,
       limit_person,
@@ -69,9 +74,14 @@ module.exports = {
       return res.status(401).send({ erro: "Acesso negado" });
     }
 
+
+
     try {
       //pegar a academia pelo id
       const academy = await AdministratorAcademy.findByPk(id);
+
+      
+
 
       //verificar se ela existe
       if (!academy)
@@ -90,15 +100,21 @@ module.exports = {
         limit_person,
         is_remote,
         link,
-        personal_name,
+        personal_id
       });
 
       await schedule.addTraningCategories(traningCategory);
+
+      // await schedule.setPersonalTrainer(personal_id);
 
       const listCategories = await schedule.getTraningCategories({
         attributes: ["id", "description"],
         includeIgnoreAttributes: false,
       });
+
+      const listSchedulePersonal = await schedule.getPersonalTrainer({
+        attributes: ["id", "name"],
+      })
 
       res.status(201).send({
         schedule_id: schedule.id,
@@ -108,9 +124,9 @@ module.exports = {
         duration: schedule.duration,
         is_remote,
         link,
-        traning_categories: traningCategory,
+        traning_categories: listCategories,
         userPerfil: userPerfil,
-        personal_name: personal_name,
+        personal_id: listSchedulePersonal,
       });
     } catch (error) {
       console.log(error);
@@ -176,14 +192,14 @@ module.exports = {
   },
 };
 
-// for (let assoc of Object.keys(AdministratorAcademy.associations)) {
+// for (let assoc of Object.keys(Schedule.associations)) {
 //   for (let accessor of Object.keys(
-//     AdministratorAcademy.associations[assoc].accessors
+//     Schedule.associations[assoc].accessors
 //   )) {
 //     console.log(
-//       AdministratorAcademy.name +
+//       Schedule.name +
 //         "." +
-//         AdministratorAcademy.associations[assoc].accessors[accessor] +
+//         Schedule.associations[assoc].accessors[accessor] +
 //         "()"
 //     );
 //   }
