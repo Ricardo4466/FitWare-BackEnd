@@ -21,7 +21,7 @@ class AdministratorAcademy extends Model {
     this.hasOne(models.AddressAcademy, { foreignKey: "academy_id" });
     this.hasOne(models.PersonalTrainer, { foreignKey: "academy_id" });
     this.belongsToMany(models.UserStudent, { through: "student_academy" });
-    // this.hasMany(models.Schedule, { foreignKey: "academy_id" });
+    this.hasMany(models.Schedule, { foreignKey: "academy_id" });
 
   }
 }

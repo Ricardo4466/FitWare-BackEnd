@@ -22,7 +22,7 @@ class Schedule extends Model {
   static associate(models) {
     this.belongsToMany(models.TraningCategorie, {through: "schedule_category", foreignKey: "schedule_id"});
     this.belongsToMany(models.UserStudent, {through: "schedule_student"});
-    // this.belongsTo(models.AdministratorAcademy,{foreignKey: "academy_id"});
+    this.belongsTo(models.AdministratorAcademy,{foreignKey: "academy_id"});
   }
 }
 

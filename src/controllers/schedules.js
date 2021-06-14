@@ -1,11 +1,19 @@
 const Schedule = require("../models/Schedule");
+const AdministratorAcademy = require("../models/AdministratorAcademy");
 const TraningCategorie = require("../models/TraningCategorie");
 
 module.exports = {
   async index(req, res) {
     try {
       const schedule = await Schedule.findAll({
-        attributes: ["id", "hour", "date", "limit_person", "duration"],
+        attributes: [
+          "id",
+          "hour",
+          "date",
+          "limit_person",
+          "duration",
+          "is_remote",
+        ],
         include: {
           attributes: ["id", "description"],
           model: TraningCategorie,
@@ -55,15 +63,27 @@ module.exports = {
     } = req.body;
 
     const { userPerfil } = req;
-    // const academy_id = req.params.id;
-    
+    const { id } = req.params;
 
     if (userPerfil !== "admin" && userPerfil !== "PersonalTrainer") {
       return res.status(401).send({ erro: "Acesso negado" });
     }
 
     try {
-      schedule = await Schedule.create({
+      //pegar a academia pelo id
+      const academy = AdministratorAcademy.findByPk(id);
+
+      //verificar se ela existe
+      if (!academy)
+        return res
+          .status(404)
+          .send({ error: "Academia inexistente para a criação da aula" });
+
+      //pensar em validar isso depois
+      //verificar se o usuário do token pode incluir aulas para essa academia
+
+      //adiciona um schedule para a academia
+      const schedule = await academy.createSchedule({
         hour,
         date,
         duration,
@@ -71,7 +91,6 @@ module.exports = {
         is_remote,
         link,
         personal_name,
-       
       });
 
       await schedule.addTraningCategories(traningCategory);
@@ -155,14 +174,17 @@ module.exports = {
       res.status(500).send(error);
     }
   },
+  
 };
 
-// for (let assoc of Object.keys(Schedule.associations)) {
-//   for (let accessor of Object.keys(Schedule.associations[assoc].accessors)) {
+// for (let assoc of Object.keys(AdministratorAcademy.associations)) {
+//   for (let accessor of Object.keys(
+//     AdministratorAcademy.associations[assoc].accessors
+//   )) {
 //     console.log(
-//       Schedule.name +
+//       AdministratorAcademy.name +
 //         "." +
-//         Schedule.associations[assoc].accessors[accessor] +
+//         AdministratorAcademy.associations[assoc].accessors[accessor] +
 //         "()"
 //     );
 //   }

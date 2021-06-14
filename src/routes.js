@@ -59,9 +59,10 @@ routes.put(
 // schedules routes configuration
 routes.get("/schedule/:id", scheduleController.find);
 routes.get("/schedule", scheduleController.index);
+
 routes.delete("/schedule/:id", scheduleController.delete);
 routes.put("/scheduled/:id", scheduleController.update);
-routes.post("/schedule", scheduleController.store);
+routes.post("/academy/:id/schedule", scheduleController.store);
 
 // traning categories routes configuration
 routes.get("/traningCategories", traningCategoriesController.index);
