@@ -71,7 +71,7 @@ module.exports = {
 
     try {
       //pegar a academia pelo id
-      const academy = AdministratorAcademy.findByPk(id);
+      const academy = await AdministratorAcademy.findByPk(id);
 
       //verificar se ela existe
       if (!academy)
@@ -174,18 +174,17 @@ module.exports = {
       res.status(500).send(error);
     }
   },
-  
 };
 
-// for (let assoc of Object.keys(AdministratorAcademy.associations)) {
-//   for (let accessor of Object.keys(
-//     AdministratorAcademy.associations[assoc].accessors
-//   )) {
-//     console.log(
-//       AdministratorAcademy.name +
-//         "." +
-//         AdministratorAcademy.associations[assoc].accessors[accessor] +
-//         "()"
-//     );
-//   }
-// }
+for (let assoc of Object.keys(AdministratorAcademy.associations)) {
+  for (let accessor of Object.keys(
+    AdministratorAcademy.associations[assoc].accessors
+  )) {
+    console.log(
+      AdministratorAcademy.name +
+        "." +
+        AdministratorAcademy.associations[assoc].accessors[accessor] +
+        "()"
+    );
+  }
+}
