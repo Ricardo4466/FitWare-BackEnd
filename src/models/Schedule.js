@@ -23,6 +23,8 @@ class Schedule extends Model {
     this.belongsToMany(models.TraningCategorie, {through: "schedule_category", foreignKey: "schedule_id"});
     this.belongsToMany(models.UserStudent, {through: "schedule_student"});
     this.belongsTo(models.AdministratorAcademy,{foreignKey: "academy_id"});
+    this.belongsTo(models.PersonalTrainer, {foreignKey: "personal_id"});
+    
   }
 }
 

@@ -18,6 +18,7 @@ class PersonalTrainer extends Model {
 
   static associate(models) { 
     this.belongsTo(models.AdministratorAcademy, { foreignKey: "academy_id" });
+    this.hasMany(models.Schedule, {foreignKey: "personal_id"});
   }
 }
 

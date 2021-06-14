@@ -48,6 +48,16 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
+      personal_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "personal_trainers",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

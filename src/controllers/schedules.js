@@ -176,15 +176,15 @@ module.exports = {
   },
 };
 
-for (let assoc of Object.keys(AdministratorAcademy.associations)) {
-  for (let accessor of Object.keys(
-    AdministratorAcademy.associations[assoc].accessors
-  )) {
-    console.log(
-      AdministratorAcademy.name +
-        "." +
-        AdministratorAcademy.associations[assoc].accessors[accessor] +
-        "()"
-    );
-  }
-}
+// for (let assoc of Object.keys(AdministratorAcademy.associations)) {
+//   for (let accessor of Object.keys(
+//     AdministratorAcademy.associations[assoc].accessors
+//   )) {
+//     console.log(
+//       AdministratorAcademy.name +
+//         "." +
+//         AdministratorAcademy.associations[assoc].accessors[accessor] +
+//         "()"
+//     );
+//   }
+// }
