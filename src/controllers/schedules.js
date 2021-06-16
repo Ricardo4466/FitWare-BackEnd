@@ -43,7 +43,23 @@ module.exports = {
 
     try {
       let schedule = await Schedule.findByPk(scheduleId, {
-        attributes: ["hour", "date", "limit_person", "duration"],
+        attributes: [
+          "id",
+          "hour",
+          "date",
+          "limit_person",
+          "duration",
+          "is_remote",
+        ],
+        include: [{
+          attributes: ["id", "description"],
+          model: TraningCategorie,
+          through: { attributes: [] },
+        }, {
+          model: PersonalTrainer,
+          attributes:["name"]
+
+        }],
       });
 
       if (!schedule)

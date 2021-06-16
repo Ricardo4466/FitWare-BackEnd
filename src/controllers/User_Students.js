@@ -179,9 +179,9 @@ module.exports = {
       student.password = password;
       student.surname = surname;
       student.celular = celular;
-      student.weight = weight;
       student.height = height;
       student.email = email;
+      student.weight = weight;
 
       // Atualizando tambem a tabela de endereço
       const address = await student.getAddressStudent();
