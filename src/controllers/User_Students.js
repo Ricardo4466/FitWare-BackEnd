@@ -78,6 +78,7 @@ module.exports = {
       state,
       city,
       academy,
+      number
     } = req.body;
 
     try {
@@ -113,6 +114,7 @@ module.exports = {
         street,
         state,
         city,
+        number
       });
 
       res.status(201).send({
@@ -170,6 +172,7 @@ module.exports = {
       street,
       state,
       city,
+      number
     } = req.body;
 
     try {
@@ -190,6 +193,8 @@ module.exports = {
       address.state = state;
       address.city = city;
       address.cep = cep;
+      address.number = number;
+
 
       student.save();
       address.save();

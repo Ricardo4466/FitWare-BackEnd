@@ -8,6 +8,7 @@ class AddressAcademy extends Model {
         street: DataTypes.STRING,
         state: DataTypes.STRING,
         city: DataTypes.STRING,
+        number:DataTypes.STRING
       },
       {
         tableName: "address_academy",
