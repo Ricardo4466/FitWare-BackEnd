@@ -57,7 +57,7 @@ module.exports = {
       });
 
       res.status(201).send({
-        PersonalRegister: {
+        personal: {
           personal_id: PersonalRegister.id,
           name: PersonalRegister.name,
           specialty: PersonalRegister.specialty,
