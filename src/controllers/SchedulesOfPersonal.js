@@ -1,21 +1,17 @@
 const UserStudent = require("../models/UserStudent");
 const PersonalTrainer = require("../models/PersonalTrainer");
 const TraningCategorie = require("../models/TraningCategorie");
-const Schedule = require("../models/Schedule")
+const Schedule = require("../models/Schedule");
 module.exports = {
   async index(req, res) {
-
-
     const { userId } = req;
-
-    console.log(userId)
 
     try {
       const scheduleOfPersonal = await PersonalTrainer.findByPk(userId, {
         attributes: ["id", "name"],
         include: [
           {
-            model: Schedule,
+            association: "Schedules",
             attributes: [
               "id",
               "hour",
@@ -24,20 +20,24 @@ module.exports = {
               "duration",
               "is_remote",
             ],
-          },
-          {
-            model: UserStudent,
-            attributes: ["id", "name"],
-          },
-          {
-            attributes: ["id", "description"],
-            model: TraningCategorie,
-            through: { attributes: [] },
+            include: [
+              {
+                model: UserStudent,
+                attributes: ["id", "first_name"],
+                through: { attributes: [] },
+
+              },
+              {
+                model: TraningCategorie,
+                attributes: ["id", "description"],
+                through: { attributes: [] },
+              },
+            ],
           },
         ],
       });
 
- 
+      console.log(scheduleOfPersonal);
 
       res.send(scheduleOfPersonal);
     } catch (error) {
