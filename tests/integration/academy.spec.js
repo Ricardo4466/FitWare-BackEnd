@@ -19,6 +19,8 @@ describe("ACADEMY", () => {
       street: "rua dos acreanos",
       state: "Sao paulo",
       city: "Itapevi",
+      number: "08",
+
     });
 
     expect(response.ok).toBeTruthy();
@@ -28,12 +30,14 @@ describe("ACADEMY", () => {
     let response = await request(app).post("/academy").send({
       name: "ExperienceFit",
       cnpj: "75.295.539/0001-14",
-      telefone: "(11) 4578-0983",
+      telefone: "(11) 4578-0983", 
       email: "experience@gmail.com",
       password: "55887788",
       cep: "06663-500",
       street: "rua dos acreanos",
       state: "Sao paulo",
+      number: "08",
+
       city: "Itapevi",
     });
 

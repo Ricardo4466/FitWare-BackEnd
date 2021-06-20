@@ -27,6 +27,8 @@ describe("STUDENTS", () => {
       street: "rua dos acreanos",
       state: "SP",
       city: "Itapevi",
+      number: "08",
+
 
     });
 
@@ -53,6 +55,8 @@ describe("STUDENTS", () => {
       street: "rua dos acreanos",
       state: "SP",
       city: "Itapevi",
+      number: "08",
+
     });
 
     response = await request(app).post("/userAcademy").send({

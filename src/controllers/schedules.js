@@ -16,8 +16,8 @@ module.exports = {
           "is_remote",
         ],
         include: [{
-          attributes: ["id", "description"],
           model: TraningCategorie,
+          attributes: ["id", "description"],
           through: { attributes: [] },
         }, {
           model: PersonalTrainer,
