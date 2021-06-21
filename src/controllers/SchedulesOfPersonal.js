@@ -5,8 +5,14 @@ const Schedule = require("../models/Schedule");
 module.exports = {
   async index(req, res) {
     const { userId } = req;
+    const { userPerfil } = req;
 
     try {
+      
+      if (userPerfil !== "PersonalTrainer") {
+        return res.status(401).send({ error: "Acesso negado" });
+      }
+
       const scheduleOfPersonal = await PersonalTrainer.findByPk(userId, {
         attributes: ["id", "name"],
         include: [
@@ -25,7 +31,6 @@ module.exports = {
                 model: UserStudent,
                 attributes: ["id", "first_name"],
                 through: { attributes: [] },
-
               },
               {
                 model: TraningCategorie,
@@ -36,8 +41,6 @@ module.exports = {
           },
         ],
       });
-
-      console.log(scheduleOfPersonal);
 
       res.send(scheduleOfPersonal);
     } catch (error) {

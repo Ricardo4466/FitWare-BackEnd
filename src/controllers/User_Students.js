@@ -134,8 +134,8 @@ module.exports = {
           cpf: userStudent.cpf,
           celular: userStudent.celular,
           academy: userStudent.academy,
-          gender,
-          contact_type
+          gender:userStudent.gender,
+          contact_type:userStudent.contact_type
         },
       });
     } catch (error) {

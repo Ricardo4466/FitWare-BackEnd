@@ -56,9 +56,6 @@ routes.put(
   userPersonalTrainerValidator.create,
   personalTrainerController.update
 );
-routes.get("/schedules", ScheduleOfPersonal.index);
-
-
 
 
 
@@ -76,5 +73,9 @@ routes.get("/traningCategories", traningCategoriesController.index);
 // Schedules of student routes configuration
 routes.get("/schedule/:scheduleId/student", studentScheduleController.index);
 routes.post("/schedule/:scheduleId/student", studentScheduleController.store);
+
+// Schedules of Personal routes configuration
+routes.get("/schedules", ScheduleOfPersonal.index);
+
 
 module.exports = routes;
