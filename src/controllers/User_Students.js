@@ -78,7 +78,10 @@ module.exports = {
       state,
       city,
       academy,
-      number
+      number,
+      gender,
+      contact_type
+
     } = req.body;
 
     try {
@@ -105,6 +108,8 @@ module.exports = {
         cpf,
         birth_date,
         celular,
+        gender,
+        contact_type
       });
 
       await userStudent.addAdministratorAcademies(academy)
@@ -128,7 +133,9 @@ module.exports = {
           height: userStudent.height,
           cpf: userStudent.cpf,
           celular: userStudent.celular,
-          academy: userStudent.academy
+          academy: userStudent.academy,
+          gender,
+          contact_type
         },
       });
     } catch (error) {

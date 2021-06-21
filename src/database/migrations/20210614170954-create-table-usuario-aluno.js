@@ -43,6 +43,14 @@ module.exports = {
       celular: {
         type: Sequelize.STRING,
       },
+      contact_type:{
+        type: Sequelize.STRING,
+        
+      },
+      gender:{
+        type: Sequelize.STRING,
+        
+      },
      
       created_at: {
         type: Sequelize.DATE,

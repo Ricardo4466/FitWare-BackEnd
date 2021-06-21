@@ -14,6 +14,9 @@ class UserStudent extends Model {
         cpf: DataTypes.STRING,
         birth_date: DataTypes.DATEONLY,
         celular: DataTypes.STRING,
+        gender: DataTypes.STRING,
+        contact_type: DataTypes.STRING,
+
       },
       {
         tableName: "user_students",
