@@ -25,6 +25,7 @@ module.exports = {
               "limit_person",
               "duration",
               "is_remote",
+              "link"
             ],
             include: [
               {
