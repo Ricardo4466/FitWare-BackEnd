@@ -14,6 +14,7 @@ module.exports = {
           "limit_person",
           "duration",
           "is_remote",
+          "link"
         ],
         include: [{
           model: TraningCategorie,
@@ -50,6 +51,7 @@ module.exports = {
           "limit_person",
           "duration",
           "is_remote",
+          "link"
         ],
         include: [{
           attributes: ["id", "description"],
