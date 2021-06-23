@@ -1,4 +1,5 @@
 const PersonalTrainer = require("../models/PersonalTrainer");
+const AdministratorAcademy = require("../models/AdministratorAcademy");
 
 const bcrypt = require("bcryptjs");
 module.exports = {
@@ -33,6 +34,14 @@ module.exports = {
   },
 
   async store(req, res) {
+    const { userPerfil, userId } = req;
+
+    console.log(req.userId);
+
+    if (userPerfil !== "admin") {
+      return res.status(401).send({ erro: "Acesso negado" });
+    }
+
     const { name, specialty, email, password } = req.body;
 
     let userPersonal = await PersonalTrainer.findOne({
@@ -46,10 +55,12 @@ module.exports = {
         .status(400)
         .send({ error: "Ops... Email ja cadastrado no sistema." });
 
+    const academy = await AdministratorAcademy.findByPk(userId);
+
     const encryptedPassword = bcrypt.hashSync(password);
 
     try {
-      const PersonalRegister = await PersonalTrainer.create({
+      const PersonalRegister = academy.createPersonalTrainer({
         name,
         specialty,
         email,

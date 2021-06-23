@@ -9,7 +9,7 @@ const userStudentController = require("./controllers/User_Students");
 const personalTrainerController = require("./controllers/Personal_trainer");
 const traningCategoriesController = require("./controllers/TraningCategories");
 const studentScheduleController = require("./controllers/StudentSchedule");
-const ScheduleOfPersonal = require("./controllers/SchedulesOfPersonal")
+const ScheduleOfPersonal = require("./controllers/SchedulesOfPersonal");
 
 //Importa os validators
 const scheduleValidator = require("./validators/scheduleValidator");
@@ -22,11 +22,6 @@ const routes = express.Router();
 routes.post("/sessions", sessionController.store);
 routes.post("/academy", administratorValidator.create, academyController.store);
 routes.post("/userAcademy", userStudentController.store);
-routes.post(
-  "/personalTrainer",
-  userPersonalTrainerValidator.create,
-  personalTrainerController.store
-);
 routes.get("/userAcademy", userStudentController.index);
 
 // TOKEN routes configuration
@@ -48,6 +43,12 @@ routes.put("/academy/:id", academyController.update);
 routes.delete("/academy/:id", academyController.delete);
 
 // personal Trainer routes configuration
+
+routes.post(
+  "/personalTrainer",
+  userPersonalTrainerValidator.create,
+  personalTrainerController.store
+);
 routes.get("/personalTrainer", personalTrainerController.index);
 routes.get("/personalTrainer/:id", personalTrainerController.find);
 routes.delete("/personalTrainer/:id", personalTrainerController.delete);
@@ -56,8 +57,6 @@ routes.put(
   userPersonalTrainerValidator.create,
   personalTrainerController.update
 );
-
-
 
 // schedules routes configuration
 routes.get("/schedule/:id", scheduleController.find);
@@ -76,6 +75,5 @@ routes.post("/schedule/:scheduleId/student", studentScheduleController.store);
 
 // Schedules of Personal routes configuration
 routes.get("/schedules", ScheduleOfPersonal.index);
-
 
 module.exports = routes;
