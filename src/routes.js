@@ -2,7 +2,7 @@ const express = require("express");
 const authMiddleware = require("./middleware/authorization");
 
 // Importar o controller
-const academyController = require("./controllers/academy.js");
+const academyController = require("./controllers/academy");
 const sessionController = require("./controllers/sessions");
 const scheduleController = require("./controllers/schedules");
 const userStudentController = require("./controllers/userStudents");
