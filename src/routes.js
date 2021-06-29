@@ -70,8 +70,10 @@ routes.post("/academy/:id/schedule", scheduleController.store);
 routes.get("/traningCategories", traningCategoriesController.index);
 
 // Schedules of student routes configuration
-routes.get("/schedule/:scheduleId/student", studentScheduleController.index);
 routes.post("/schedule/:scheduleId/student", studentScheduleController.store);
+routes.get("/student/schedules", studentScheduleController.find);
+routes.get("/schedule/:scheduleId/student", studentScheduleController.index);
+
 
 // Schedules of Personal routes configuration
 routes.get("/schedules", ScheduleOfPersonal.index);
