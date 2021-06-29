@@ -3,8 +3,8 @@ const authMiddleware = require("./middleware/authorization");
 
 // Importar o controller
 const academyController = require("./controllers/Academy");
-const sessionController = require("./controllers/sessions");
-const scheduleController = require("./controllers/schedules");
+const sessionController = require("./controllers/Sessions");
+const scheduleController = require("./controllers/Schedules");
 const userStudentController = require("./controllers/User_Students");
 const personalTrainerController = require("./controllers/Personal_trainer");
 const traningCategoriesController = require("./controllers/TraningCategories");
