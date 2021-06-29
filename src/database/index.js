@@ -11,9 +11,9 @@ const AddressAcademy = require("../models/AddressAcademy");
 const TraningCategory = require("../models/TraningCategorie");
 const PersonalTrainer = require("../models/PersonalTrainer");
 const ContactType = require("../models/ContactType");
-const Gender = require("../models/Gender")
 
-const connection = new Sequelize(dbConfig);
+const connection = new Sequelize(dbConfig.url, dbConfig.config);
+
 
 // INICIANDO OS MODELS
 Schedules.init(connection);
