@@ -43,8 +43,6 @@ module.exports = {
             "is_remote",
             "link",
           ],
-          through: { attributes: [] },
-
         },
       });
 
