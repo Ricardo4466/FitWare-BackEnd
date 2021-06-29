@@ -14,7 +14,7 @@ class Gender extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.UserStudent, { foreignKey: "student_id"});
+  
   }
 }
 
