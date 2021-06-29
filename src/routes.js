@@ -2,14 +2,14 @@ const express = require("express");
 const authMiddleware = require("./middleware/authorization");
 
 // Importar o controller
-const academyController = require("./controllers/Academy");
-const sessionController = require("./controllers/Sessions");
-const scheduleController = require("./controllers/Schedules");
-const userStudentController = require("./controllers/User_Students");
-const personalTrainerController = require("./controllers/Personal_trainer");
-const traningCategoriesController = require("./controllers/TraningCategories");
-const studentScheduleController = require("./controllers/StudentSchedule");
-const ScheduleOfPersonal = require("./controllers/SchedulesOfPersonal");
+const academyController = require("./controllers/academy");
+const sessionController = require("./controllers/sessions");
+const scheduleController = require("./controllers/schedules");
+const userStudentController = require("./controllers/userStudents");
+const personalTrainerController = require("./controllers/personal_trainer");
+const traningCategoriesController = require("./controllers/traningCategories");
+const studentScheduleController = require("./controllers/studentSchedule");
+const ScheduleOfPersonal = require("./controllers/schedulesOfPersonal");
 
 //Importa os validators
 const scheduleValidator = require("./validators/scheduleValidator");
