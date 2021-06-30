@@ -1,5 +1,6 @@
 const { Op } = require("sequelize");
 const User_Student = require("../models/UserStudent");
+const AdministratorAcademy = require("../models/AdministratorAcademy");
 const bcrypt = require("bcryptjs");
 
 module.exports = {
@@ -61,6 +62,97 @@ module.exports = {
     }
   },
 
+  async storeAcademyStudent(req, res) {
+    const { userPerfil, userId } = req;
+
+    console.log(req.userId);
+
+    if (userPerfil !== "admin") {
+      return res.status(401).send({ erro: "Acesso negado" });
+    }
+
+    const {
+      first_name,
+      surname,
+      email,
+      password,
+      image_profile,
+      weight,
+      height,
+      cpf,
+      birth_date,
+      celular,
+      cep,
+      street,
+      state,
+      city,
+      number,
+      gender,
+      contact_type,
+    } = req.body;
+
+    try {
+      let user = await User_Student.findOne({
+        where: {
+          cpf,
+        },
+      });
+
+      if (user)
+        return res
+          .status(401)
+          .send({ error: "Ops... Esse CPF ja esta cadastrado!" });
+
+      const encryptedPassword = bcrypt.hashSync(password);
+
+      const academy = await AdministratorAcademy.findByPk(userId);
+console.log(academy);
+
+      const userStudent = await academy.createUserStudent({
+        first_name,
+        surname,
+        email,
+        password: encryptedPassword,
+        weight,
+        height,
+        cpf,
+        birth_date,
+        celular,
+        gender,
+        contact_type,
+      });
+
+
+      userStudent.createAddressStudent({
+        cep,
+        street,
+        state,
+        city,
+        number,
+      });
+
+      res.status(201).send({
+        user_student: {
+          first_name: userStudent.first_name,
+          user_student_id: userStudent.id,
+          surname: userStudent.surname,
+          birth_date: userStudent.birth_date,
+          email: userStudent.email,
+          weight: userStudent.weight,
+          height: userStudent.height,
+          cpf: userStudent.cpf,
+          celular: userStudent.celular,
+          academy: userStudent.academy,
+          gender: userStudent.gender,
+          contact_type: userStudent.contact_type,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send(error);
+    }
+  },
+
   async store(req, res) {
     const {
       first_name,
@@ -80,8 +172,7 @@ module.exports = {
       academy,
       number,
       gender,
-      contact_type
-
+      contact_type,
     } = req.body;
 
     try {
@@ -109,17 +200,17 @@ module.exports = {
         birth_date,
         celular,
         gender,
-        contact_type
+        contact_type,
       });
 
-      await userStudent.addAdministratorAcademies(academy)
+      await userStudent.addAdministratorAcademies(academy);
 
       userStudent.createAddressStudent({
         cep,
         street,
         state,
         city,
-        number
+        number,
       });
 
       res.status(201).send({
@@ -134,8 +225,8 @@ module.exports = {
           cpf: userStudent.cpf,
           celular: userStudent.celular,
           academy: userStudent.academy,
-          gender:userStudent.gender,
-          contact_type:userStudent.contact_type
+          gender: userStudent.gender,
+          contact_type: userStudent.contact_type,
         },
       });
     } catch (error) {
@@ -179,7 +270,7 @@ module.exports = {
       street,
       state,
       city,
-      number
+      number,
     } = req.body;
 
     try {
@@ -202,7 +293,6 @@ module.exports = {
       address.cep = cep;
       address.number = number;
 
-
       student.save();
       address.save();
 
@@ -214,8 +304,15 @@ module.exports = {
   },
 };
 
-// for (let assoc of Object.keys(User_Student.associations)) {
-//   for (let accessor of Object.keys(User_Student.associations[assoc].accessors)) {
-//     console.log(User_Student.name + '.' + User_Student.associations[assoc].accessors[accessor] + '()');
-//   }
-// }
+for (let assoc of Object.keys(User_Student.associations)) {
+  for (let accessor of Object.keys(
+    User_Student.associations[assoc].accessors
+  )) {
+    console.log(
+      User_Student.name +
+        "." +
+        User_Student.associations[assoc].accessors[accessor] +
+        "()"
+    );
+  }
+}

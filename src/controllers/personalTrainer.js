@@ -60,7 +60,7 @@ module.exports = {
     const encryptedPassword = bcrypt.hashSync(password);
 
     try {
-      const PersonalRegister = academy.createPersonalTrainer({
+      const PersonalRegister = await academy.createPersonalTrainer({
         name,
         specialty,
         email,
