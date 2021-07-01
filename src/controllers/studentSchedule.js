@@ -31,6 +31,8 @@ module.exports = {
       }
 
       const scheduleOfStudent = await UserStudent.findByPk(userId, {
+        attributes: [],
+
         include: {
           association: "Schedules",
           attributes: [
