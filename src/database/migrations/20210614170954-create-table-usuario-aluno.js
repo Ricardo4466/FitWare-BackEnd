@@ -51,16 +51,6 @@ module.exports = {
         type: Sequelize.STRING,
         
       },
-      academy_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "academy",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-      },
-     
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

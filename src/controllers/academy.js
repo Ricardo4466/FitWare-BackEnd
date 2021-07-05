@@ -18,7 +18,7 @@ module.exports = {
   },
 
   async find(req, res) {
-    const academy_id = req.params.id;
+    const academy_id = req;
 
     try {
       let academy = await Academy.findByPk(academy_id, {

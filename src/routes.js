@@ -28,7 +28,7 @@ routes.get("/userAcademy", userStudentController.index);
 routes.use(authMiddleware);
 
 // students routes configuration
-routes.post("/academy/userAcademy", userStudentController.storeAcademyStudent);
+// routes.post("/academy/userAcademy", userStudentController.storeAcademyStudent);
 
 routes.get("/userAcademy/:id", userStudentController.find);
 routes.delete("/userAcademy/:id", userStudentController.delete);

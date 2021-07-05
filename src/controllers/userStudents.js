@@ -62,98 +62,92 @@ module.exports = {
     }
   },
 
-  async storeAcademyStudent(req, res) {
-    const { userPerfil, userId } = req;
+  // async store(req, res) {
+  //   const {
+  //     first_name,
+  //     surname,
+  //     email,
+  //     password,
+  //     image_profile,
+  //     weight,
+  //     height,
+  //     cpf,
+  //     birth_date,
+  //     celular,
+  //     cep,
+  //     street,
+  //     state,
+  //     city,
+  //     number,
+  //     gender,
+  //     academy,
+  //     contact_type,
+  //   } = req.body;
 
-    console.log(req.userId);
+  //   try {
+  //     let user = await User_Student.findOne({
+  //       where: {
+  //         cpf,
+  //       },
+  //     });
 
-    if (userPerfil !== "admin") {
-      return res.status(401).send({ erro: "Acesso negado" });
-    }
+  //     if (user)
+  //       return res
+  //         .status(401)
+  //         .send({ error: "Ops... Esse CPF ja esta cadastrado!" });
 
-    const {
-      first_name,
-      surname,
-      email,
-      password,
-      image_profile,
-      weight,
-      height,
-      cpf,
-      birth_date,
-      celular,
-      cep,
-      street,
-      state,
-      city,
-      number,
-      gender,
-      contact_type,
-    } = req.body;
+  //     const encryptedPassword = bcrypt.hashSync(password);
 
-    try {
-      let user = await User_Student.findOne({
-        where: {
-          cpf,
-        },
-      });
+  //     const userStudent = await User_Student.create({
+  //       first_name,
+  //       surname,
+  //       email,
+  //       password: encryptedPassword,
+  //       weight,
+  //       height,
+  //       cpf,
+  //       birth_date,
+  //       celular,
+  //       gender,
+  //       contact_type,
+  //       academy
+  //     });
 
-      if (user)
-        return res
-          .status(401)
-          .send({ error: "Ops... Esse CPF ja esta cadastrado!" });
+  //     await userStudent.addAdministratorAcademy(academy);
 
-      const encryptedPassword = bcrypt.hashSync(password);
+  //     await userStudent.createAddressStudent({
+  //       cep,
+  //       street,
+  //       state,
+  //       city,
+  //       number,
+  //     });
 
-      const academy = await AdministratorAcademy.findByPk(userId);
-console.log(academy);
-
-      const userStudent = await academy.createUserStudent({
-        first_name,
-        surname,
-        email,
-        password: encryptedPassword,
-        weight,
-        height,
-        cpf,
-        birth_date,
-        celular,
-        gender,
-        contact_type,
-      });
+  //     res.status(201).send({
+  //       user_student: {
+  //         first_name: userStudent.first_name,
+  //         user_student_id: userStudent.id,
+  //         surname: userStudent.surname,
+  //         birth_date: userStudent.birth_date,
+  //         email: userStudent.email,
+  //         weight: userStudent.weight,
+  //         height: userStudent.height,
+  //         cpf: userStudent.cpf,
+  //         celular: userStudent.celular,
+  //         gender: userStudent.gender,
+  //         contact_type: userStudent.contact_type,
+  //       },
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //     res.status(500).send(error);
+  //   }
+  // },
 
 
-      userStudent.createAddressStudent({
-        cep,
-        street,
-        state,
-        city,
-        number,
-      });
-
-      res.status(201).send({
-        user_student: {
-          first_name: userStudent.first_name,
-          user_student_id: userStudent.id,
-          surname: userStudent.surname,
-          birth_date: userStudent.birth_date,
-          email: userStudent.email,
-          weight: userStudent.weight,
-          height: userStudent.height,
-          cpf: userStudent.cpf,
-          celular: userStudent.celular,
-          academy: userStudent.academy,
-          gender: userStudent.gender,
-          contact_type: userStudent.contact_type,
-        },
-      });
-    } catch (error) {
-      console.log(error);
-      res.status(500).send(error);
-    }
-  },
 
   async store(req, res) {
+    
     const {
       first_name,
       surname,
@@ -169,11 +163,11 @@ console.log(academy);
       street,
       state,
       city,
-      academy,
-      number,
-      gender,
-      contact_type,
+      
     } = req.body;
+
+    const {userId} = req;
+    console.log("store -> user_id", userid)
 
     try {
       let user = await User_Student.findOne({
@@ -199,18 +193,15 @@ console.log(academy);
         cpf,
         birth_date,
         celular,
-        gender,
-        contact_type,
       });
 
-      await userStudent.addAdministratorAcademies(academy);
+      await userStudent.addAdministratorAcademies(academy)
 
       userStudent.createAddressStudent({
         cep,
         street,
         state,
         city,
-        number,
       });
 
       res.status(201).send({
@@ -224,9 +215,7 @@ console.log(academy);
           height: userStudent.height,
           cpf: userStudent.cpf,
           celular: userStudent.celular,
-          academy: userStudent.academy,
-          gender: userStudent.gender,
-          contact_type: userStudent.contact_type,
+          academy: userStudent.academy
         },
       });
     } catch (error) {
@@ -234,6 +223,12 @@ console.log(academy);
       res.status(500).send(error);
     }
   },
+
+
+
+
+
+  
 
   async delete(req, res) {
     const user_student_id = req.params.id;
@@ -304,15 +299,15 @@ console.log(academy);
   },
 };
 
-for (let assoc of Object.keys(User_Student.associations)) {
-  for (let accessor of Object.keys(
-    User_Student.associations[assoc].accessors
-  )) {
-    console.log(
-      User_Student.name +
-        "." +
-        User_Student.associations[assoc].accessors[accessor] +
-        "()"
-    );
-  }
-}
+// for (let assoc of Object.keys(AdministratorAcademy.associations)) {
+//   for (let accessor of Object.keys(
+//     AdministratorAcademy.associations[assoc].accessors
+//   )) {
+//     console.log(
+//       AdministratorAcademy.name +
+//         "." +
+//         User_StuAdministratorAcademydent.associations[assoc].accessors[accessor] +
+//         "()"
+//     );
+//   }
+// }

@@ -43,6 +43,7 @@ module.exports = {
       const token = generateToken({
         userId: user.id,
         perfil,
+
         userName: user.name,
       });
 
@@ -51,6 +52,9 @@ module.exports = {
           userId: user.id,
           userName: user.name,
           userEmail: user.email,
+
+          academyId: user.academy_id || "",
+
           image: user.image,
         },
         perfil,
