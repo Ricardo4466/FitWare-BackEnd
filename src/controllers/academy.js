@@ -18,11 +18,13 @@ module.exports = {
   },
 
   async find(req, res) {
-    const academy_id = req;
+    const {userId} = req;
 
     try {
-      let academy = await Academy.findByPk(academy_id, {
-        attributes: ["id", "name", "email", "telefone"],
+      let academy = await Academy.findByPk(userId, {
+        include: {
+          association: "AddressAcademy",
+        },
       });
 
       //const address = await academy.getAddressStudent();

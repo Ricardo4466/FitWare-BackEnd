@@ -21,7 +21,6 @@ const routes = express.Router();
 
 routes.post("/sessions", sessionController.store);
 routes.post("/academy", administratorValidator.create, academyController.store);
-routes.post("/userAcademy", userStudentController.store);
 routes.get("/userAcademy", userStudentController.index);
 
 // TOKEN routes configuration
@@ -36,12 +35,13 @@ routes.put(
   "/userAcademy/:id",
   userStudentValidator.create,
   userStudentController.update
-);
-
-// academy routes configuration
-routes.get("/academy", academyController.index);
-routes.get("/academy/:id", academyController.find);
-routes.put("/academy/:id", academyController.update);
+  );
+  routes.post("/userAcademy", userStudentController.store);
+  
+  // academy routes configuration
+  routes.get("/academy", academyController.index);
+  routes.get("/academy/:id", academyController.find);
+  routes.put("/academy/:id", academyController.update);
 routes.delete("/academy/:id", academyController.delete);
 
 // personal Trainer routes configuration

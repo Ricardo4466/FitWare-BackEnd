@@ -82,6 +82,8 @@ module.exports = {
       
     } = req.body;
 
+    const {userId} = req;
+    
     try {
       let user = await User_Student.findOne({
         where: {
@@ -108,7 +110,7 @@ module.exports = {
         celular,
       });
 
-      // await userStudent.addAdministratorAcademies(academy)
+      await userStudent.addAdministratorAcademies(userId)
 
       userStudent.createAddressStudent({
         cep,
