@@ -108,7 +108,7 @@ module.exports = {
         celular,
       });
 
-      await userStudent.addAdministratorAcademies(academy)
+      // await userStudent.addAdministratorAcademies(academy)
 
       userStudent.createAddressStudent({
         cep,
