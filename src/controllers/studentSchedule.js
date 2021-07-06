@@ -32,20 +32,21 @@ module.exports = {
 
       const scheduleOfStudent = await UserStudent.findByPk(userId, {
         attributes: [],
-
-        include: {
-          association: "Schedules",
-          attributes: [
-            "id",
-            "hour",
-            "date",
-            "limit_person",
-            "duration",
-            "is_remote",
-            "link",
-          ],
-          through: { attributes: [] },
-        },
+        include: [
+          {
+            association: "Schedules",
+            attributes: [
+              "id",
+              "hour",
+              "date",
+              "limit_person",
+              "duration",
+              "is_remote",
+              "link",
+            ],
+            through: { attributes: [] },
+          },
+        ],
       });
 
       res.send(scheduleOfStudent);

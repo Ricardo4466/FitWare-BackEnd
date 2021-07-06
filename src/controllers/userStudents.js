@@ -62,90 +62,6 @@ module.exports = {
     }
   },
 
-  // async store(req, res) {
-  //   const {
-  //     first_name,
-  //     surname,
-  //     email,
-  //     password,
-  //     image_profile,
-  //     weight,
-  //     height,
-  //     cpf,
-  //     birth_date,
-  //     celular,
-  //     cep,
-  //     street,
-  //     state,
-  //     city,
-  //     number,
-  //     gender,
-  //     academy,
-  //     contact_type,
-  //   } = req.body;
-
-  //   try {
-  //     let user = await User_Student.findOne({
-  //       where: {
-  //         cpf,
-  //       },
-  //     });
-
-  //     if (user)
-  //       return res
-  //         .status(401)
-  //         .send({ error: "Ops... Esse CPF ja esta cadastrado!" });
-
-  //     const encryptedPassword = bcrypt.hashSync(password);
-
-  //     const userStudent = await User_Student.create({
-  //       first_name,
-  //       surname,
-  //       email,
-  //       password: encryptedPassword,
-  //       weight,
-  //       height,
-  //       cpf,
-  //       birth_date,
-  //       celular,
-  //       gender,
-  //       contact_type,
-  //       academy
-  //     });
-
-  //     await userStudent.addAdministratorAcademy(academy);
-
-  //     await userStudent.createAddressStudent({
-  //       cep,
-  //       street,
-  //       state,
-  //       city,
-  //       number,
-  //     });
-
-  //     res.status(201).send({
-  //       user_student: {
-  //         first_name: userStudent.first_name,
-  //         user_student_id: userStudent.id,
-  //         surname: userStudent.surname,
-  //         birth_date: userStudent.birth_date,
-  //         email: userStudent.email,
-  //         weight: userStudent.weight,
-  //         height: userStudent.height,
-  //         cpf: userStudent.cpf,
-  //         celular: userStudent.celular,
-  //         gender: userStudent.gender,
-  //         contact_type: userStudent.contact_type,
-  //       },
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //     res.status(500).send(error);
-  //   }
-  // },
-
-
-
   async store(req, res) {
     
     const {
@@ -165,9 +81,6 @@ module.exports = {
       city,
       
     } = req.body;
-
-    const {userId} = req;
-    console.log("store -> user_id", userid)
 
     try {
       let user = await User_Student.findOne({
